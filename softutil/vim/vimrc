@@ -1,0 +1,190 @@
+"execute pathogen#infect()
+"execute pathogen#helptags()
+
+
+set nocompatible              " 不要使用vi的键盘模式，而是vim自己的
+filetype off                  " required 
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+" let Vundle manage Vundle, required Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+"Plugin 'L9'
+" Git plugin not hosted on GitHub
+"Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+Plugin 'ascenator/L9', {'name': 'newL9'}
+
+"#=============My Own Plugin===================
+Bundle 'majutsushi/tagbar'
+
+Plugin 'Raimondi/delimitMate'  "括号自动补全
+
+Plugin 'scrooloose/nerdtree'  "nerdtree树形结构
+
+Plugin 'scrooloose/syntastic' "语法错误检查
+
+"MarkDown插件
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
+Plugin 'iamcco/markdown-preview.vim'  "Markdown实时预览
+
+"vim
+Plugin 'fatih/vim-go'
+
+Plugin 'Valloric/YouCompleteMe'
+
+"Plugin 'suan/vim-instant-markdown'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required为特定文件类型载入相关缩进文件
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line")
+
+syntax on
+colorscheme molokai 
+highlight NonText guibg=#060606
+highlight Folded  guibg=#0A0A0A guifg=#9090D0
+set t_Co=256
+set guioptions=egmrti
+set gfn=Monospace\ 10
+
+" Encoding
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8,gb2312,gbk,gb18030
+set fileformat=unix
+set langmenu=zh_CN.UTF-8
+
+let g:rehash256 = 1
+set nu "显示行号
+set hlsearch "查询高亮
+set incsearch "逐字高亮
+set ignorecase "忽略大小写
+
+"关闭缓存文件
+set nobackup 
+set noswapfile 
+
+set nocompatible "使用vim自己的键盘模式
+
+"制表符和空格键设置
+set tabstop=4  "表示一个tab的空格长度，默认是8
+set softtabstop=4  "表示编辑模式下退格键的回退长度
+set shiftwidth=4   "每一级的缩进，一般和softtabstop一样
+set expandtab  "当设置成expandtab时,缩进用空格来表示,noexpandtab则是用制表符表示一个缩进
+set nofoldenable "关闭自动折叠
+
+set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\  "状态栏设置
+
+"用特殊的符号来代表tab制表符
+"set list
+"set listchars=tab:▸\ ,eol:¬
+"set lcs=tab:\|\ ,nbsp:%,trail:-  "匹配行首tab为|，行尾空格为-
+
+"Tagbar的快捷键
+nmap <F8> :TagbarToggle<CR>  
+"let g:tagbar_ctags_bin='ctags'            "ctags程序的路径
+"let g:tagbar_width=30                    "窗口宽度的设置
+"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen() "如果是c语言的程序的话，tagbar自动开启
+"
+"#--------------NERDTREE配置------------
+let NERDTreeWinPos='left'
+let NERDTreeWinSize=30
+map <F2> :NERDTreeToggle<CR>
+
+
+"#----------Syntastic------------#
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+
+
+"#---------------MarkDown-------------#
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+let g:vim_markdown_folding_disabled = 1 "设置不做代码折叠
+"let g:vim_markdown_frontmatter=1 "设置支持yaml语法
+let g:table_mode_corner="|"
+
+"nmap <silent> <F10> <Plug>MarkdownPreview
+"imap <silent> <F10> <Plug>MarkdownPreview
+"nmap <silent> <F9> <Plug>StopMarkdownPreview
+"imap <silent> <F9> <Plug>StopMarkdownPreview
+nmap <silent> <Leader>mk <Plug>MarkdownPreview
+imap <silent> <Leader>mk <Plug>MarkdownPreview
+nmap <silent> <Leader>dn <Plug>StopMarkdownPreview
+imap <silent> <Leader>dn <Plug>StopMarkdownPreview
+
+"使用goolge浏览器自带的markdown浏览控件
+"nnoremap <Leader>ch :update<Bar>silent !google-chrome %:p<CR>
+
+" path to the chrome or the command to open chrome()
+let g:mkdp_path_to_chrome = "google-chrome"
+
+" set to 1, the vim will open the preview window once enter the markdowni file
+let g:mkdp_auto_start = 0
+
+" set to 1, the vim will auto open preview window when you edit the markdown file
+let g:mkdp_auto_open = 0
+
+"set to 1, the vim will auto close current preview window when change from markdown buffer to another buffe
+let g:mkdp_auto_close = 1
+
+" set to 1, the vim will just refresh markdown when save the buffer or leave from insert mode, default 0 is auto refresh markdown as you edit or move the cursor
+let g:mkdp_refresh_slow = 0
+
+ "set to 1, the MarkdownPreview command can be use for all files,by default it just can be use in markdown file
+let g:mkdp_command_for_global = 0
+
+
+
+" golang 配置
+" set mapleader
+let mapleader = ","
+
+" vim-go custom mappings
+au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>gd <Plug>(go-doc)
+au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+au FileType go nmap <leader>r <Plug>(go-run)
+au FileType go nmap <leader>b <Plug>(go-build)
+au FileType go nmap <leader>t <Plug>(go-test)
+au FileType go nmap <leader>c <Plug>(go-coverage)
+au FileType go nmap <Leader>ds <Plug>(go-def-split)
+au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+au FileType go nmap <Leader>e <Plug>(go-rename)　"
+
+"vim-go setting
+let g:go_fmt_command = "goimports"
