@@ -7,4 +7,4 @@
 * 结构型模式
 * 行为型模式
 
-[6个原则](file://../six_principle.md)
+[6个原则](https://github.com/lys091112/doc/blob/master/skill/design_pattern/six_principle.md)
