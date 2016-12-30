@@ -46,6 +46,6 @@
 问题分析：
     当thread1，thread2执行到transfer->Entry<K,V> next = e.next时，断住threa1,让thread2执行，此时
 
-    ![logo](./logo.png)
+    ![cmd](https://raw.githubusercontent.com/lys091112/doc/master/skill/java/pictures/before_transfer.png)
 
-    ![cmd-markdown-logo](https://www.zybuluo.com/static/img/logo.png)
+    ![cmd](../pictures/before_transfer.png)
