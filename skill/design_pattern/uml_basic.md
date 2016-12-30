@@ -4,7 +4,7 @@ UML 基本知识
 - 泛化:表示is-a的关系，是对象之间耦合度最大的一种关系，子类继承父类的所有细节。直接使用语言中的继承表达。在类图中使用带三角箭头的实线表示，箭头从子类指向父类   
 childClass__________|>ParentClass
 <div align="center">
-![logo](https://github.com/lys091112/doc/tree/master/skill/picture/generation2.gif)
+![logo](./picture/generation2.gif)
 </div>
 - 实现（Realization）:在类图中就是接口和实现的关系,在类图中使用带三角箭头的虚线表示，箭头从实现类指向接口
     ChildClass --------|> ParentInterface
