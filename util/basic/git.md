@@ -1,4 +1,4 @@
-# git使用记录
+
 
 git 初始化工作
 * git config --global user.name "xianyue"
@@ -16,6 +16,8 @@ git 初始化工作
     4. git cherry-pick #合并某个单独的commit
         将A.commit(hash:xxx1) 合并到B，如果有冲突，那么手动解决冲突。命令如下：
         git checkout B; git cherry-pick xxx1
+        可以使用命令：git cherry-pick --abort 来撤销cherry-pick的进行
+    * git rebase -i origin/master rebase Master分支代码到本地分支,然后提交push
         
     
 

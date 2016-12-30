@@ -9,8 +9,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
-" let Vundle manage Vundle, required Plugin 'VundleVim/Vundle.vim'
-
+" let Vundle manage Vundle, required Plugin 'VundleVim/Vundle.vim' 
 " The following are examples of different formats supported.
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
@@ -43,10 +42,14 @@ Plugin 'plasticboy/vim-markdown'
 
 Plugin 'iamcco/markdown-preview.vim'  "Markdown实时预览
 
-"vim
+"go
 Plugin 'fatih/vim-go'
 
 Plugin 'Valloric/YouCompleteMe'
+
+Plugin 'terryma/vim-multiple-cursors'
+
+Plugin 'fholgado/minibufexpl.vim'
 
 "Plugin 'suan/vim-instant-markdown'
 
@@ -86,6 +89,13 @@ set hlsearch "查询高亮
 set incsearch "逐字高亮
 set ignorecase "忽略大小写
 
+"行列高亮显示 cterm 表示为原生vim设置样式，设置为NONE表示可以自定义设置。
+"ctermbg 设置终端vim的背景色, ctermfg 设置终端vim的前景色, guibg 和 guifg 分别是设置gvim的背景色和前景色
+"set cursorline   
+"hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white   
+set cursorcolumn
+"highlight CursorColumn cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+
 "关闭缓存文件
 set nobackup 
 set noswapfile 
@@ -116,6 +126,10 @@ nmap <F8> :TagbarToggle<CR>
 let NERDTreeWinPos='left'
 let NERDTreeWinSize=30
 map <F2> :NERDTreeToggle<CR>
+let NERDTreeDirArrows=1 "目录箭头 1 显示箭头  0传统+-|号
+let NERDTreeShowBookmarks=1 "显示书签
+let NERDTreeWinPos ="left"       "将NERDTree的窗口设置在gvim窗口的左边   
+let NERDTreeQuitOnOpen = 1  "close nerdtree when open a new file
 
 
 "#----------Syntastic------------#
@@ -125,7 +139,8 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 
@@ -184,7 +199,25 @@ au FileType go nmap <leader>c <Plug>(go-coverage)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-au FileType go nmap <Leader>e <Plug>(go-rename)　"
+au FileType go nmap <Leader>e <Plug>(go-rename)
 
 "vim-go setting
 let g:go_fmt_command = "goimports"
+
+
+"vim_multi_cursor
+" Default mapping
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+
+"--------minibufexpl----------
+"这个设置保证在打开0个以上的文件是最高限制都是有用的，
+"如果不加就会出现打开一个文件的时候Filexplorer再次变小，当打开多个文件的时候再次变大
+let g:miniBufExplorerMoreThanOne=0
+let g:bufExplorerMaxHeight=30                "taglist的最高限制
+"let g:miniBufExplMapWindowNavArrows = 1       "按左右箭头切换文件标签，再按enter键即可打开选择的文件标签
+"let g:miniBufExplMapCTabSwitchBufs = 1       "按Tab键也可达到切换效果
+"let g:miniBufExplMapWindowNavVim = 1
+"let g:miniBufExplModSelTarget = 1
