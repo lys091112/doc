@@ -13,6 +13,8 @@ git 初始化工作
     3. git commit合并                           #-i代表的是不包含的commit的hash值
         - git rebase -i HEAD~3                  #合并前3个commit)
         - git rebase -i 8dc36db                 #指定某一个commit，但不包括该commit进行合并
+        - git push --force origin master        #合并分支后进行提交时,对以前提交过的记录进行强制覆盖,
+        - 需要注意的是将合并后显示的分支置为pick，其他分支置为squash, 这个很重要
     4. git cherry-pick                          #合并某个单独的commit
         git checkout B; git cherry-pick xxx1    #将A.commit(hash:xxx1) 合并到B，如果有冲突，那么手动解决冲突
                                                 #可以使用命令：git cherry-pick --abort 来撤销cherry-pick的进行
