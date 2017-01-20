@@ -6,7 +6,7 @@ git 初始化工作
 * git config --global core.editor vim  (指定git rebase默认使用的编辑器)
 * git config --global credential.helper store (会默认在下次执行时，记忆上次的提交密码)
 
-## 基本命令
+### 基本命令
    
     1. git branch -d test                       #删除本地分支 
     2. git push origin --delete test            #删除远程分支
@@ -34,7 +34,7 @@ git 初始化工作
     4. 把第2步生成的keep-these.txt移动到agent-cmd-service，在agent-cmd-service下运行如下命令
         git filter-branch --force --index-filter \
         "git rm --ignore-unmatch --cached -qr . ; \
-        cat $PWD/keep-these.txt | xargs git reset -q \$GIT_COMMIT --" \
+        cat $PWD/keep-these.txt | xargs git reset -q $GIT_COMMIT --" \
         --prune-empty --tag-name-filter cat -- --all
     5. git remote add origin git@scm.oneapm.me:ai/agent-command-service.git
     6. git push origin master
@@ -45,9 +45,9 @@ git 初始化工作
     注意: 从subtree进行更新
     git subtree pull --prefix=agent-cmd-service --squash cmd-service master
     git subtree push --prefix=agent-cmd-service --squash cmd-service master
-    参数解析: agent-cmd-service 在application-insight下关联的subtree目录
-             cmd-service 关联的subtree的远程节点别名
-             master 远程subtree分支名称
+    参数解析->: agent-cmd-service 在application-insight下关联的subtree目录
+               cmd-service 关联的subtree的远程节点别名
+               master 远程subtree分支名称
 
 #### 2. git submodule 使用
 
@@ -61,9 +61,11 @@ git 初始化工作
        cat $PWD/keep-these.log | xargs git reset -q $GIT_COMMIT --" \
        --prune-empty --tag-name-filter cat -- --all (只保留文件的提交记录)
     8. git push origin master (这里orgin master 是b-service的)
-    
     注意：将仓库a-service中的文件移动到仓库b-service中，并保留提交历史记录
     git submodule add 仓库地址 路径  #路径不能以/结尾
     git submodule update --init --recursive  #git clone 之后需要手动加载submodule代码
     submodule的删除稍微麻烦点：首先，要在“.gitmodules”文件中删除相应配置信息。
        然后，执行“git rm –cached ”命令将子模块所在的文件从git中删除
+
+    注意：使用submodule时，当在sbumodule下git checkout <HASH1>时会出现error: pathspec hash did not match any file(s) known to git（即找不到这个提交记录）
+          这可能需要你在submodule下执行get fetch ,更新远端最新代码，然后在进行checkout

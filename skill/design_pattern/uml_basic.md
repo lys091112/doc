@@ -3,9 +3,9 @@
 UML 基本知识
 - 泛化:表示is-a的关系，是对象之间耦合度最大的一种关系，子类继承父类的所有细节。直接使用语言中的继承表达。在类图中使用带三角箭头的实线表示，箭头从子类指向父类   
 childClass__________|>ParentClass
-<div align="center">
-![logo](./picture/generation2.gif)
-</div>
+
+![logo](../picture/generation2.gif)
+
 - 实现（Realization）:在类图中就是接口和实现的关系,在类图中使用带三角箭头的虚线表示，箭头从实现类指向接口
     ChildClass --------|> ParentInterface
 - 依赖(Dependency)：对象之间最弱的一种关联方式，是临时性的关联。代码中一般指由局部变量、函数参数、返回值建立的对于其他对象的调用关系。一个类调用被依赖类中的某些方法而得以完成这个类的一些职责。在类图使用带箭头的虚线表示，箭头从使用类指向被依赖的类

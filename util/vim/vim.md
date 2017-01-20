@@ -2,18 +2,21 @@
 
 ## 基础命令
 1). 编辑多行 
-    
-    * 添加一行
-        按 C-v，进入 Visual Block mode，按 G 到末行，按 $ 到所有行的行尾，按 A 在行尾添加，输入添加的内容（只有第一行会显示），按 <ESC> 退出编辑。完整命令如下： C-V G$A = models.CharField(maxlength=XXX)<ESC>
-        将行尾 $ 替换为所需内容。命令如下： :%s/$/ = models.CharField(maxlength=XXX)
-    * 删除一行
-        C-v,移动光标，选择需要删除的区域，按d进行删除
+```    
+* 添加一行
+    1.按 C-v，进入 Visual Block mode，按 G 到末行，按 $ 到所有行的行尾，按 A 在行尾添加,
+    输入添加的内容（只有第一行会显示）， 按 <ESC> 退出编辑。
+    完整命令如下： C-V G$A = models.CharField(maxlength=XXX)<ESC>
 
+    2.将行尾 $ 替换为所需内容。命令如下： :%s/$/ = models.CharField(maxlength=XXX)
+* 删除一行
+        C-v,移动光标，选择需要删除的区域，按d进行删除
+```
 
 2). vim 宏录制
     
     1.把光标定位在第一行；
-    2.在normal模式下输入qa(当然也可以输入qb, qc, etc，这里的a, b, c是指寄存器名称，vim会把录制好的宏放在这个寄存器中)(PS：如果不知道什么是vim的寄存器，请自行放狗搜之)；
+    2.在normal模式下输入qa(当然也可以输入qb, qc, etc，这里的a, b, c是指寄存器名称，vim会把录制好的宏放在这个寄存器中)；
     3.正常情况下，vim的命令行会显示“开始录制”的字样，这时候，把光标定位到第一个字符（按0或者|），再按x删除，按j跳到下一行；
     4.normal模式下输入q，结束宏录制。
     
