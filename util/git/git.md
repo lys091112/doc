@@ -22,7 +22,7 @@ git 初始化工作
     6. git remote add orgin git@github.com:xx/xx.git  #添加远程仓库
     7. git remote -v                            #查看本地仓库关联的远程仓库的地址
     8. git reset --hard $commit                 #回退到某个指定的commit
-
+    9. git log -- [filePath or file]            #查看文件的修改历史记录，还可以查看这个文件是何时被删除的
 
 
 ### git高级使用
