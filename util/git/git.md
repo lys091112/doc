@@ -18,7 +18,7 @@ git 初始化工作
     4. git cherry-pick                          #合并某个单独的commit
         git checkout B; git cherry-pick xxx1    #将A.commit(hash:xxx1) 合并到B，如果有冲突，那么手动解决冲突
                                                 #可以使用命令：git cherry-pick --abort 来撤销cherry-pick的进行
-    5. git rebase -i origin/master rebase       #Master分支代码到本地分支,然后提交push
+    5. git rebase -i origin/master              #Master分支代码到本地分支,然后提交push
     6. git remote add orgin git@github.com:xx/xx.git  #添加远程仓库
     7. git remote -v                            #查看本地仓库关联的远程仓库的地址
     8. git reset --hard $commit                 #回退到某个指定的commit
@@ -40,7 +40,7 @@ git 初始化工作
     6. git push origin master
     7. 切换到application-insight/
     8. git remote add cmd-service git@scm.oneapm.me:ai/agent-command-service.git
-    9. git subtree add --prefix=agent-cmd-service cmd-service maste
+    9. git subtree add --prefix=agent-cmd-service cmd-service master
 
     注意: 从subtree进行更新
     git subtree pull --prefix=agent-cmd-service --squash cmd-service master
