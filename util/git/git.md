@@ -6,7 +6,7 @@ git 初始化工作
 * git config --global core.editor vim  (指定git rebase默认使用的编辑器)
 * git config --global credential.helper store (会默认在下次执行时，记忆上次的提交密码)
 
-### 基本命令
+### 1.基本命令
    
     1. git branch -d test                       #删除本地分支 
     2. git push origin --delete test            #删除远程分支
@@ -23,10 +23,12 @@ git 初始化工作
     7. git remote -v                            #查看本地仓库关联的远程仓库的地址
     8. git reset --hard $commit                 #回退到某个指定的commit
     9. git log -- [filePath or file]            #查看文件的修改历史记录，还可以查看这个文件是何时被删除的
+    10.git cherry-pick <commit>                 #切换到最终分支分支，执行(commit号指的是要被合并的分支的commit)
+    11 git commit --amend                       #可以修改最后一次提交的注释信息
 
 
-### git高级使用
-#### 1. git subtree 使用
+### 2.git高级使用
+#### 2.1. git subtree 使用
 
     1. 从ai-dm删除想要抽离的文件并commit到本地
     2. 列出所有删除的文件 (git show --pretty="" --name-only <SHA1> > keep-these.txt)
@@ -49,7 +51,7 @@ git 初始化工作
                cmd-service 关联的subtree的远程节点别名
                master 远程subtree分支名称
 
-#### 2. git submodule 使用
+#### 2.2. git submodule 使用
 
     1. 创建新的仓库（b-service)
     2. 在a-service中添加新的远程项目（例如：git remote add bservice git@scm.xxx:me:ai/s-service.git) 
@@ -68,4 +70,12 @@ git 初始化工作
        然后，执行“git rm –cached ”命令将子模块所在的文件从git中删除
 
     注意：使用submodule时，当在sbumodule下git checkout <HASH1>时会出现error: pathspec hash did not match any file(s) known to git（即找不到这个提交记录）
-          这可能需要你在submodule下执行get fetch ,更新远端最新代码，然后在进行checkout
+          这可能需要你在submodule下执行get fetch ,更新远端最新代码，然后在进行check
+
+
+#### 2.3. 修改历史提交
+
+    1. git rebase -i HEAD~3
+    2. 修改要修改的注释行，将其pick改为edit
+    3. git commit --amend
+    4. git rebase --continue #搞定

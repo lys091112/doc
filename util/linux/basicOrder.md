@@ -41,4 +41,5 @@
             tar -N '2016/12/22' -zcvf home.tar.gz /home ##>在home中，比'2016/12/22'新的文件才会被打包
             tar exclude /home/dmtsai -zcvf myfile.tar.gz /home/* /etc ##>备份/home,/etc,但不包含/home/dmtsai
             tar -cvf - /etc | tar -xvf - ##>等价与cp -r /etc /tmp
+            tar --exclude ./application-insight/.git -zcvf app.tar.gz ./application-insight/*
             

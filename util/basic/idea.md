@@ -22,4 +22,6 @@ idea 默认是120
 1. Alt+F7               #作用在类上，查看某个类被调用的情况，Find Usages
 2. Ctrl+Shift+Alt+T     #重构菜单，万能的快捷键
 3. Alt+Insert           #自动生成构造方法或者setter/getter
+4. Ctrl+Shift+A         #全局navigating to action
+5. Alt+Home             #navigate Bar  文件导航
 ```
