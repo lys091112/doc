@@ -84,6 +84,39 @@
         e! 全文恢复
         <C-r> 重做,（用于执行u后的还原）
 
+5). Ex命令
+
+```
+    * Ex基本命令
+        :[range]delete [x]               #删除指定范围内的行[到寄存器 x 中]
+        :[range]yank [x]                 #复制指定范围的行[到寄存器 x 中]
+        :[line]put [x]                   #在指定行后粘贴寄存器 x 中的内容
+        :[range]copy {address}           #把指定范围内的行拷贝到 {address} 所指定的行之下
+        :[range]move {address}           #把指定范围内的行移动到 {address} 所指定的行之下
+        :[range]join                     #连接指定范围内的行
+        :[range]normal {commands}        #对指定范围内的每一行执行普通模式命令 {commands}
+        :[range]substitute/{pattern}/{string}/[flags] #把指定范围内出现{pattern}的地方替换为{string}
+        :[range]global/{pattern}/[cmd]   #对指定范围内匹配{pattern}的所有行,在其上执行 Ex 命令{cmd}
+
+    * 自动补全Ex  
+        :col<C-d> 会显示《 color colorscheme
+        补全的方式有
+            * set wildmode=longes,list     #类似与shell的方式
+            * set wildmode                 #类似与zsh的方式
+              set wildmode=full
+    * 历史 set history=200
+    * 运行shell 
+            * :shell 启动一个 shell (输入 exit 返回 Vim)
+            * :!{cmd} 在 shell 中执行 {cmd}
+            * :read !{cmd} 在 shell 中执行 {cmd} ,并把其标准输出插入到光标下方
+            * :[range]write !{cmd} 在 shell 中执行 {cmd} ,以 [range] 作为其标准输入
+            * :[range]!{filter} 使用外部程序 {filter} 过滤指定的 [range]
+                demo:
+                    * :read !{cmd}                #将当前命令输出读入到缓冲区
+                    * :write !sh                  #将缓冲区的内容输出给外部的sh命令做标准输入
+                    * :write ! sh                 #同上
+                    * :write! sh                  #将缓冲区的内容输出到sh文件
+```
 
 5). 其他
     

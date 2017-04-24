@@ -37,6 +37,7 @@
 
 
 
+https://gopm.io/download  golang插件下载
 ## 参数配置
 
     "golang
@@ -56,3 +57,5 @@
     -– 执行:GoDeps，显示当前包的依赖包列表。
     -– 执行:GoImplements，显示当前类型实现的interface列表。
     -– 执行:GoRename [to]，将当前光标下的符号替换为[to]
+
+
