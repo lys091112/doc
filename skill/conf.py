@@ -99,7 +99,7 @@ todo_include_todos = True
 #
 html_theme = 'sphinx_rtd_theme'
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-html_logo = "_static/logo.png"
+html_logo = "_static/logo.jpg"
 html_show_sourcelink = False
 
 # Theme options are theme-specific and customize the look and feel of a theme
