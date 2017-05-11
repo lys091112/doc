@@ -7,6 +7,7 @@
     1). ln -sf 源文件 软连接名称 //为某个源文件建立软连接
     2). chown -R name:group filedir //修改文件的拥有者
     3). chmod -R 744 dir/file //修改文件或文件夹的读写权限
+    4). chgrp root ./test.sh  //将当前目录的test文件的所属组修改为root
 
 #### 2. 系统基本信息
 ```

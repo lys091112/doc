@@ -2,13 +2,21 @@
 
 1). Maven Release Plugin
 
-     As mention at POM Reference: SCM The connection requires read access for Maven to be able to find the source code (for example, an update), developerConnection requires a connection that will give write access. It is an information for our project where the other, including with another maven plugin to re-use this information further. In this case the Maven Release Plugin.
+    - As mention at POM Reference: SCM The connection requires read access for Maven to be able to find the source code (for example, an update), developerConnection requires a connection that will give write access. It is an information for our project where the other, including with another maven plugin to re-use this information further. In this case the Maven Release Plugin.
 
     The Maven Release Plugin: Prepare a Release also provides us the behind the scenes what it does for us during the release:prepare. There are some significant steps which requires the access to the scm as the following: -
     Transform the SCM information in the POM to include the final destination of the tag
     Tag the code in the SCM with a version name (this will be prompted for)
     Commit the modified POMs
     This means we should provide the scm information when using the maven release plugin. Especially the developerConnection. If we don't provide, the plugin is not able to execute.
+    - maven 发版命令
+        发布snapshots版本：
+            mvn clean deploy -Pproduct(profile属性)
+        发布正式版本：
+            mvn clean release:prepare -Pproduct
+            mvn release:perform -Pproduct
+        反布失败后的回滚:
+            mvn clean release:rollback -Pproduct
 
 2). Maven FindBugs Plugin
 
@@ -37,3 +45,4 @@
 3). 命令创建maven项目
 
     mvn archetype:generate -DgroupId=info.sanaulla -DartifactId=MockitoDemo -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
