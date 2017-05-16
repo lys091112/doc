@@ -44,4 +44,5 @@
 5. Alt+Home             #navigate Bar  文件导航
 6. Ctrl+W+K             #打开git commit面板
 7. Ctrl+Shift+Alt+U     #打开maven依赖树
+8. Ctrl+Alt+O           #删除无用的包引用
 ```

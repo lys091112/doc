@@ -11,6 +11,6 @@ Welcome to skill's documentation!
  :numbered:
  :glob:
 
- java
+ vim
 
 
