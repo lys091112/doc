@@ -12,5 +12,6 @@ Welcome to skill's documentation!
  :glob:
 
  vim
+ linux
 
 
