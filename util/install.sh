@@ -9,7 +9,7 @@ pip freeze --local | grep -v "^\-e" | cut -d = -f 1  | xargs -n1 pip install -U
 
 echo -e "Install sphinx and required packages"
 
-pip install -r requirements.txt
-pip install sphinx sphinx-autobuild
+sudo pip install -r requirements.txt
+sudo pip install sphinx sphinx-autobuild
 
 echo -e "\n\033[41;37mIt is ready to write your docs, execute preview.sh to get start\033[0m"

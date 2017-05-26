@@ -11,7 +11,7 @@ Welcome to skill's documentation!
  :numbered:
  :glob:
 
- vim
  linux
-
+ language
+ tool
 

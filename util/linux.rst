@@ -1,14 +1,14 @@
 .. highlight:: rst
 
-Linux Learn 
+Linux Study 
 ==============
 
 
-Linux 基础命令使用
+Linux 基础使用
 ------------------
 
 .. toctree::
-  :maxdepth: 1
+  :maxdepth: 2
   :glob:
 
   linux/basic/*
@@ -17,8 +17,8 @@ Linux 基础命令使用
 -----------
 
 .. toctree::
-  :maxdepth: 1
+  :maxdepth: 2
   :glob:
 
-  linux/shoot/file
+  linux/shoot/*
 
