@@ -21,10 +21,12 @@ git 初始化工作
     5. git rebase -i origin/master              #Master分支代码到本地分支,然后提交push
     6. git remote add orgin git@github.com:xx/xx.git  #添加远程仓库
     7. git remote -v                            #查看本地仓库关联的远程仓库的地址
-    8. git reset --hard $commit                 #回退到某个指定的commit
+    8. git reset --hard $commit                 #回退到某个指定的commit,但是会丢失上一次的提交信息
     9. git log -- [filePath or file]            #查看文件的修改历史记录，还可以查看这个文件是何时被删除的
     10.git cherry-pick <commit>                 #切换到最终分支分支，执行(commit号指的是要被合并的分支的commit)
     11 git commit --amend                       #可以修改最后一次提交的注释信息
+    12 git revert HEAD                          #撤销前一次 commit,但是会保留history和commit
+       git revert HEAD^                         #撤销前前一次 commit, 保留history and commit 
 
 
 ### 2.git高级使用
