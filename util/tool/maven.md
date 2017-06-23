@@ -46,3 +46,7 @@
 
     mvn archetype:generate -DgroupId=info.sanaulla -DartifactId=MockitoDemo -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 
+
+4) dependency
+
+    在引入依赖时，要根据依赖的属性进行scope的分配，如果是test类型，一定要添加test的scope，不然可能会与compile类型的包冲突
