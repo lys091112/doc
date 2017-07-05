@@ -7,6 +7,14 @@
 基础命令
 ---------
 
+简单配置命令
+~~~~~~~~~~~~~~~
+
+::
+
+    * set noexpandtab  #关闭tab和控制的转换
+
+
 编辑行 
 ~~~~~~
 
@@ -18,6 +26,7 @@
         完整命令如下： C-V G$A = models.CharField(maxlength=XXX)<ESC>
 
         2.将行尾 $ 替换为所需内容。命令如下： :%s/$/ = models.CharField(maxlength=XXX)
+
     * 删除一行
             C-v,移动光标，选择需要删除的区域，按d进行删除
         
