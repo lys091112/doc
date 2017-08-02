@@ -60,9 +60,9 @@ source_suffix = ['.rst', '.md']
 master_doc = 'index'
 
 # General information about the project.
-project = u'告警引擎'
-copyright = u'2017, OneAPM'
-author = u'APM Group'
+project = u'Own Docs'
+copyright = u'2017, Crescent'
+author = u'crescent'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -119,35 +119,40 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'alert-doc'
+htmlhelp_basename = 'doc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
-
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
+latex_engine = 'xelatex'
+ 
+#     \setCJKmonofont[Scale=0.9]{PragmataPro} , 处理英文
+#  XinGothic-CiticPress 处理中文
+latex_elements = { 
+    'papersize': 'a4paper',
+    'pointsize': '10pt',
+    'classoptions': ',english',
+    'inputenc': '', 
+    'utf8extra': '', 
+    'preamble': r'''
+    \usepackage[SlantFont]{xeCJK}
+    \usepackage{indentfirst}
+    \setlength{\parindent}{2em}
+    \setCJKmainfont{XinGothic-CiticPress}
+    \setCJKmonofont[Scale=0.9]{XinGothic-CiticPress}
+    \setCJKfamilyfont{song}{XinGothic-CiticPress}
+    \setCJKfamilyfont{sf}{XinGothic-CiticPress}
+    \XeTeXlinebreaklocale "zh"
+    \XeTeXlinebreakskip = 0pt plus 1pt
+    ''',
+    'figure_align': 'htbp',
 }
-
+ 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    (master_doc, 'AlertService.tex', u'Alert Service Documentation',
-     u'syhily', 'manual'),
+latex_documents = [ 
+    (master_doc, 'OwnDocs.tex', u'Learn Way Documentation',
+     u'crescent', 'manual'),
 ]
 
 
@@ -156,7 +161,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'alertservice', u'Alert Service Documentation',
+    (master_doc, 'own-doc', u'Learn Way Documentation',
      [author], 1)
 ]
 
@@ -167,8 +172,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'AlertService', u'Alert Service Documentation',
-     author, 'AlertService', 'One line description of project.',
+    (master_doc, 'OwnDoc', u'Learn Way Documentation',
+     author, 'OwnDoc', 'description of Own Demo.',
      'Miscellaneous'),
 ]
 

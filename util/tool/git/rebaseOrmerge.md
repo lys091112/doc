@@ -3,19 +3,19 @@
 ### 两种方式的git图示
 两个人同时开发一个分支，当前的git分支如下
 <div align=left>
-![git_branch_work](../pictures/git_branch_work.jpg)
+![git_branch_work](../../pictures/git_branch_work.jpg)
 
 </div>
 
 1). 如果使用git merge的方式，当前分支与要merge的分支，会合并到同一个节点。融合后的git图示如下：
 <div align=left>
-![git_merge](../pictures/git_merge.jpg)
+![git_merge](../../pictures/git_merge.jpg)
 
 </div>
 
 2). 如果使用git rebase的方式，拷贝老分支作为新的分支添加的rebase的分支后面，老的分支会被删除掉，所有的提交记录都会被融合成一个。融合后的git图示如下：
 <div align=left>
-![git_rebase](../pictures/git_rebase.jpg)
+![git_rebase](../../pictures/git_rebase.jpg)
 </div>
 
 

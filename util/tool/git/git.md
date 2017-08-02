@@ -8,25 +8,28 @@ git 初始化工作
 
 ### 1.基本命令
    
-    1. git branch -d test                       #删除本地分支 
-    2. git push origin --delete test            #删除远程分支
-    3. git commit合并                           #-i代表的是不包含的commit的hash值
-        - git rebase -i HEAD~3                  #合并前3个commit)
-        - git rebase -i 8dc36db                 #指定某一个commit，但不包括该commit进行合并
-        - git push --force origin master        #合并分支后进行提交时,对以前提交过的记录进行强制覆盖,
-        - 需要注意的是将合并后显示的分支置为pick，其他分支置为squash, 这个很重要
-    4. git cherry-pick                          #合并某个单独的commit
-        git checkout B; git cherry-pick xxx1    #将A.commit(hash:xxx1) 合并到B，如果有冲突，那么手动解决冲突
-                                                #可以使用命令：git cherry-pick --abort 来撤销cherry-pick的进行
-    5. git rebase -i origin/master              #Master分支代码到本地分支,然后提交push
-    6. git remote add orgin git@github.com:xx/xx.git  #添加远程仓库
-    7. git remote -v                            #查看本地仓库关联的远程仓库的地址
-    8. git reset --hard $commit                 #回退到某个指定的commit,但是会丢失上一次的提交信息
-    9. git log -- [filePath or file]            #查看文件的修改历史记录，还可以查看这个文件是何时被删除的
-    10.git cherry-pick <commit>                 #切换到最终分支分支，执行(commit号指的是要被合并的分支的commit)
-    11 git commit --amend                       #可以修改最后一次提交的注释信息
-    12 git revert HEAD                          #撤销前一次 commit,但是会保留history和commit
-       git revert HEAD^                         #撤销前前一次 commit, 保留history and commit 
+    1.  git branch -d test                       #删除本地分支 
+    2.  git push origin --delete test            #删除远程分支
+    3.  git commit合并                           #-i代表的是不包含的commit的hash值
+         - git rebase -i HEAD~3                  #合并前3个commit)
+         - git rebase -i 8dc36db                 #指定某一个commit，但不包括该commit进行合并
+         - git push --force origin master        #合并分支后进行提交时,对以前提交过的记录进行强制覆盖,
+         - 需要注意的是将合并后显示的分支置为pick，其他分支置为squash, 这个很重要
+    4.  git cherry-pick                          #合并某个单独的commit
+         git checkout B; git cherry-pick xxx1    #将A.commit(hash:xxx1) 合并到B，如果有冲突，那么手动解决冲突
+                                                 #可以使用命令：git cherry-pick --abort 来撤销cherry-pick的进行
+    5.  git rebase -i origin/master              #Master分支代码到本地分支,然后提交push
+    6.  git remote add orgin git@github.com:xx/xx.git  #添加远程仓库
+    7.  git remote -v                            #查看本地仓库关联的远程仓库的地址
+    8.  git reset --hard $commit                 #回退到某个指定的commit,但是会丢失上一次的提交信息
+    9.  git log -- [filePath or file]            #查看文件的修改历史记录，还可以查看这个文件是何时被删除的
+    10. git cherry-pick <commit>                 #切换到最终分支分支，执行(commit号指的是要被合并的分支的commit)
+    11  git commit --amend                       #可以修改最后一次提交的注释信息
+    12  git revert HEAD                          #撤销前一次 commit,但是会保留history和commit
+        git revert HEAD^                         #撤销前前一次 commit, 保留history and commit 
+    13  git show <commit>                        #查询某次commit的修改记录
+
+    14. git archive -o ../updated.zip HEAD (git diff --name-only HEAD^)  # 将上一次提交的修改保存到zip文件中
 
 
 ### 2.git高级使用
