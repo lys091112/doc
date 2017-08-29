@@ -23,6 +23,6 @@ export PATH={PATH}:/usr/local/texlive/2017/bin/x86_64-linux
 
 ```
 
-3. 等待自动安装完成
+4. 等待自动安装完成
 
 

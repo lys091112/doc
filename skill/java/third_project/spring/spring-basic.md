@@ -7,6 +7,39 @@ Spring解析Java配置类的时候, 会判断类是不是标注了@Import注解,
 后面初始化bean工程完成后, 会回调ImportBeanDefinitionRegistrar.
 ```
 
+- **修改springBoot内嵌的tomcat的session名称**
+
+参考：[Spring boot configure custom jsessionid for embedded server](https://stackoverflow.com/questions/25918556/spring-boot-configure-custom-jsessionid-for-embedded-server)
+```
+ 方式一： 在application.properties配置文件中添加配置
+  server.session.cookie.name = MYSESSIONID
+
+ 方式二：
+ 	@Bean
+	public ServletContextInitializer servletContextInitializer() {
+		return new ServletContextInitializer() {
+			@Override
+			public void onStartup(ServletContext servletContext) throws ServletException {
+				servletContext.getSessionCookieConfig().setName("yourCookieName");
+			}
+		};
+	}
+
+	@Configuration
+	@EnableAutoConfiguration
+	@ComponentScan
+	public class Application implements ServletContextInitializer {
+
+		public static void main(String[] args) throws Exception {
+			SpringApplication.run(Application.class, args);
+		}
+
+		@Override
+		public void onStartup(ServletContext servletContext) throws ServletException {
+			servletContext.getSessionCookieConfig().setName("yourCookieName");
+		}
+	}
+```
 
 - **Spring视图解析器(ViewResolver)**
     

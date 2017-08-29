@@ -87,6 +87,6 @@ java -XX:+PrintFlagsFinal -version | grep ThreadStackSize
 * YGC
 
 ```
-    YGC整个过程都水stw
+    YGC整个过程都stw
 ```
 
