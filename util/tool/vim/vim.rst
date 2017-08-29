@@ -13,7 +13,9 @@
 ::
 
     * set noexpandtab  #关闭tab和控制的转换
-
+    * nmap, nnoremap的区别:
+        nmap的映射可能会形成循环，如：nmap dd o<esc>jddk, 本意是删除一行，但实际会死循环，需要<c-c>进行介绍
+        nnoremap 可以防止死循环
 
 编辑行 
 ~~~~~~

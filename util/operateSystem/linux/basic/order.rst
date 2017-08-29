@@ -95,4 +95,6 @@
 
     1. 开机自启动
        vim /etc/rc.local 将自己的脚本写入到里面，例如： cd /home/langle/vpn  sh vpn.sh
+    2. 查看邮件的服务地址是否合法
+        nslookup smtp.exmail.qq.com
 
