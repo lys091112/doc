@@ -52,7 +52,41 @@ S0U：年轻代中第一个survivor（幸存区）目前已使用空间 (字节)
  MTT ： 最大持有次数限制
 ```
 
-2 查看JVM默认xss大小
+## 常用命令
+
+* 查看JVM默认xss大小
 ```
 java -XX:+PrintFlagsFinal -version | grep ThreadStackSize
 ```
+* jmap
+```
+    jmap -heap pid
+    jmap -histo pid   # 查看top10
+    jmap =histo:live
+    jmap -dump:format=b,file=pid.bin pid
+
+注意事项：
+    jmap 所在的用户必须和目标进程的用户一致
+    jmap 在线上环境禁止加 -F ， -F to force a thread dump. 
+    jstack 不推荐使用
+```
+
+## 常见概念
+
+* java对象申请时，内存分配
+```
+    1. 对象默认都是从Eden区分配，但是遇到大对象会直接在Old区分配，此时不会进行YGC
+    2. 这个大对象是指：大于PretenureSizeThreshold或者大于Eden
+    3. 但是如果遇到待分配对象不是大对象，Eden区剩余空间不足，此时就会发生YGC
+    4. PretenureSizeThreshold值只是判断条件之一还有其他条件，判断条件的顺序不重要，不会影响最终的YGC的触发
+    5. 注意young GC中有部分存活对象会晋升到old gen,晋升周期默认为15次，所以young GC后old gen的占用量通常会有所升高
+```
+
+
+
+* YGC
+
+```
+    YGC整个过程都水stw
+```
+
