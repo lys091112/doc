@@ -19,3 +19,4 @@ show full processlist;
 ### 解决方式
 
 1. 设置数据库wait_timeout数值大小，mysql数据库默认是28800（8小时），数值过大会造成mysql中有大量的数据连接无法释放，从而拖累系统性能，但也不能过于小，否则会遭遇到 "Mysql has gone away", (有类似与mysql_ping 的方式，告诉服务器连接的存活状态，以便于服务器重新计算wait_timeout时间)
+
