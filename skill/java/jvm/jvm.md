@@ -58,10 +58,21 @@ S0U：年轻代中第一个survivor（幸存区）目前已使用空间 (字节)
 ```
 java -XX:+PrintFlagsFinal -version | grep ThreadStackSize
 ```
+
+* jstat 
+```
+jstat -gcnewcapacity pid  # 年轻代对象的信息及其占用量
+jstat -gcnew pid  #查看新生代的对象信息
+jstat -gcold pid  #查看老年代的对象信息
+jstat -gcoldcapacity pid  # 老年代对象的信息及其占用量
+jstat -class pid  # 加载的类数据及占用的空间信息
+
+```
+
 * jmap
 ```
-    jmap -heap pid
-    jmap -histo pid   # 查看top10
+    jmap -heap pid    # 整体堆信息
+    jmap -histo pid   # 查看top10, 展示信息为编号，实例数，字节，类名
     jmap =histo:live
     jmap -dump:format=b,file=pid.bin pid
 
