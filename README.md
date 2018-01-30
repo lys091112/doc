@@ -25,4 +25,11 @@ export PATH={PATH}:/usr/local/texlive/2017/bin/x86_64-linux
 
 4. 等待自动安装完成
 
+### rst to pdf
+
+- 安装 fonts 下至系統
+- 安装 Texlive 2017
+- 执行 make clean latex latexpdf
+- PDF 文件位于 _build/latex/xxx.pdf
+
 

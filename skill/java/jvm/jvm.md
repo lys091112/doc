@@ -82,6 +82,11 @@ jstat -class pid  # 加载的类数据及占用的空间信息
     jstack 不推荐使用
 ```
 
+* jinfo
+```
+    jinfo -flags {pid}   # 打印传给jvm的参数值
+```
+
 ## 常见概念
 
 * java对象申请时，内存分配
