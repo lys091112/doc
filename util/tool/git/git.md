@@ -31,6 +31,10 @@ git 初始化工作
 
     14. git archive -o ../updated.zip HEAD (git diff --name-only HEAD^)  # 将上一次提交的修改保存到zip文件中
 
+    15. git log --graph  # 用于显示分支的提交记录
+
+    16. git remote prune origin  #清理掉不存在远程分支的本地分支
+
 
 ### 2.git高级使用
 #### 2.1. git subtree 使用

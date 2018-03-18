@@ -42,3 +42,27 @@ Thread.yield() : 使当前线程从执行状态（运行状态）变为可执行
 ```
 用来中断线程，可用于唤醒在sleep中的线程
 ```
+
+
+
+### 类方法
+```
+class1.isAssignableFrom(class2) 用来表示class1 是否是 class2 的父类或父接口
+
+obj instanceof Class 判断某个对象是否是某个类的实例
+```
+
+
+### 类加载器
+```
+Thread context class loader存在的目的主要是为了解决parent delegation机制下无法干净的解决的问题。假如有下述委派链： 
+ClassLoader A -> System class loader -> Extension class loader -> Bootstrap class loader 
+
+那么委派链左边的ClassLoader就可以很自然的使用右边的ClassLoader所加载的类。 
+
+但如果情况要反过来，是右边的ClassLoader所加载的代码需要反过来去找委派链靠左边的ClassLoader去加载东西怎么办呢？没辙，parent delegation是单向的，没办法反过来从右边找左边。 
+
+这种情况下就可以把某个位于委派链左边的ClassLoader设置为线程的context class loader，这样就给机会让代码不受parent delegation的委派方向的限制而加载到类了。
+
+```
+

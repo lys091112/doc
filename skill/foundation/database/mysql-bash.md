@@ -11,6 +11,13 @@
 |show full processlist;  | 查询数据库的连接状态|                  
 |show status like '%{param}%'| 根据变量名查询具体含义|
 
+- **查询mysql锁等待情况**
+```
+ select * from information_schema.innodb_trx where trx_state="lock wait";
+ 或
+ show engine innodb status;
+```
+
 
 **param** 代表的变量值
 

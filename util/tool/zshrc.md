@@ -25,3 +25,9 @@ wd help  用来查看wd的使用
 ```
 
 - incr      #zsh的目录自动不全，不好的地方再于目录默认会给补/，难以删掉
+
+- 在使用docker进入镜像时，通过脚本以及镜像名称进入
+```
+image=`docker ps | grep $1 | awk '{print $1}'`
+docker exec -it ${image} bash
+```
