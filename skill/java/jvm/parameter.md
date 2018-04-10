@@ -21,4 +21,46 @@
 -XX:VMThreadStackSize            # vm内部的线程比如gc线程等
 -XX:+PrintGCDetails              # 打印GC日志
 -XX:+PrintGCTimeStamps           # 打印GC时间戳
+
+
+
+**CMS的常用参数**
+
+-UseCMSInitatingOccupancyOnly: 只有达到阙值时，才进行CMS回收
+-XX:CMSParallelRemarkEnabled 开启并行remark
+-XX:CMSScanvengeBeforRemark 强制remark前，会开启一次minor gc
+-XX:+ParallelCMSThreads CMS垃圾回收线程数，默认为：（ParallelGCThreads + 3)/4 
+-XX:CMSInitatingPermOccupancyFraction: 当永久区占有率达到一定比例，进行垃圾回收（前提：-XX:CMSClassUnloadingEnabled)
+
+-XX:+DisablExplicitGC 用来显示禁止System.gc()
+
+
+
+GC collection
+
+**Young Collection**
+-XX:+UseSerialGC
+-XX:+UseParallelGC
+-XX:+UseParNewGC
+
+** Old Collection**
+-XX:+UseParallelOldGC
+-XX:+UseConcMarkSweepGC
+-XX:+UseG1GCv
+```
+
+GC 启动设置片段
+```
+java -server -Xms2g -Xmx4g 
+-XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:InitiatingHeapOccupancyPercent=35 -XX:+DisableExplicitGC -XX:+UseTLAB -XX:+ResizeTLAB 
+-verbose:gc -Xloggc:/oneapm/local/alert-consumer/logs/gc.20180330_174630.log -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps 
+
+
+-XX:+PrintHeapAtGC -XX:+PrintPromotionFailure -XX:+PrintClassHistogram -XX:+PrintTenuringDistribution -XX:+PrintGCApplicationStoppedTime -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=10M 
+
+
+-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/oneapm/local/alert-consumer/logs -XX:ErrorFile=/oneapm/local/alert-consumer/logs/err.log
+
+-Dfile.encoding=UTF-8 -Djava.awt.headless=true -Dsun.net.inetaddr.ttl=0 -Djava.net.preferIPv4Stack=true -Djava.security.egd=file:/dev/./urandom
+
 ```

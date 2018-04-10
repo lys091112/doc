@@ -98,8 +98,6 @@ jstat -class pid  # 加载的类数据及占用的空间信息
     5. 注意young GC中有部分存活对象会晋升到old gen,晋升周期默认为15次，所以young GC后old gen的占用量通常会有所升高
 ```
 
-
-
 * YGC
 
 ```

@@ -18,51 +18,72 @@
 ### JVM
 
 1. 查询JVM参数
+
 ```
  jcmd pid VM.system_properties  #打印出vm的运行参数
+```
 
 ## java 类
+
 ```
 ClassName.this
     this指的是当前正在访问这段代码的对象,当在内部类中使用this指的就是内部类的对象, 为了访问外层类对象,就可以使用外层类名.this来访问,一般也只在这种情况下使用这种
 ```
 
-#### Thead 类
-- notify, notifyAll, wait方法的调用需要首先获取锁
-```
-wait的功能是释放锁并使当前线程进入等待状态，所以在调用wait()前需要先获取锁， 而notitfy是同志线程进入就绪状态并交还对象锁然后重新获取对象锁（即临界区控制权），但此时锁已经释放，所以需要重新加锁
-如果没有锁定的线程去调用这些方法，会抛出异常：java.lang.IllegalMonitorStatException
-```
-- yield
-```
-Thread.yield() : 使当前线程从执行状态（运行状态）变为可执行态（就绪状态）。cpu会从众多的可执行态里选择，也就是说，当前也就是刚刚的那个线程还是有可能会被再次执行到的，并不是说一定会执行其他线程而该线程在下一次中不会执行到了
-```
-
-- interrupt 
-```
-用来中断线程，可用于唤醒在sleep中的线程
-```
-
-
 
 ### 类方法
+
 ```
 class1.isAssignableFrom(class2) 用来表示class1 是否是 class2 的父类或父接口
 
 obj instanceof Class 判断某个对象是否是某个类的实例
 ```
 
+### Java中的一些基础知识
 
-### 类加载器
-```
-Thread context class loader存在的目的主要是为了解决parent delegation机制下无法干净的解决的问题。假如有下述委派链： 
-ClassLoader A -> System class loader -> Extension class loader -> Bootstrap class loader 
-
-那么委派链左边的ClassLoader就可以很自然的使用右边的ClassLoader所加载的类。 
-
-但如果情况要反过来，是右边的ClassLoader所加载的代码需要反过来去找委派链靠左边的ClassLoader去加载东西怎么办呢？没辙，parent delegation是单向的，没办法反过来从右边找左边。 
-
-这种情况下就可以把某个位于委派链左边的ClassLoader设置为线程的context class loader，这样就给机会让代码不受parent delegation的委派方向的限制而加载到类了。
+1. == and equals 方法的区别
 
 ```
+    1、==是判断两个变量或实例是不是指向同一个内存空间。 equals是判断两个变量或实例所指向的内存空间的值是不是相同。
 
+    2、==是指对内存地址进行比较。 equals()是对字符串的内容进行比较。
+
+    3、==指引用是否相同。 equals()指的是值是否相同
+
+```
+
+2. 对象引用的四种级别
+
+```
+1、强引用
+
+最普遍的一种引用方式，如String s = "abc"，变量s就是字符串“abc”的强引用，只要强引用存在，则垃圾回收器就不会回收这个对象。
+
+2、软引用（SoftReference）
+
+用于描述还有用但非必须的对象，如果内存足够，不回收，如果内存不足，则回收。一般用于实现内存敏感的高速缓存，软引用可以和引用队列ReferenceQueue联合使用，如果软引用的对象被垃圾回收，JVM就会把这个软引用加入到与之关联的引用队列中。
+
+3、弱引用（WeakReference）
+
+弱引用和软引用大致相同，弱引用与软引用的区别在于：只具有弱引用的对象拥有更短暂的生命周期。在垃圾回收器线程扫描它所管辖的内存区域的过程中，一旦发现了只具有弱引用的对象，不管当前内存空间足够与否，都会回收它的内存。
+
+4、虚引用（PhantomReference）
+
+就是形同虚设，与其他几种引用都不同，虚引用并不会决定对象的生命周期。如果一个对象仅持有虚引用，那么它就和没有任何引用一样，在任何时候都可能被垃圾回收器回收。 虚引用主要用来跟踪对象被垃圾回收器回收的活动。
+
+```
+
+3. ConcurrentHashMap能完全替代HashTable吗？
+```
+HashTable虽然性能上不如ConcurrentHashMap，但并不能完全被取代，两者的迭代器的一致性不同的，
+HashTable的迭代器是强一致性的，而ConcurrentHashMap是弱一致的。
+ConcurrentHashMap的get，clear，iterator 都是弱一致性的。 Doug Lea 也将这个判断留给用户自己决定是否使用ConcurrentHashMap。
+
+弱一致性： put操作将一个元素加入到底层数据结构后，get可能在某段时间内还看不到这个元素，若不考虑内存模型，单从代码逻辑上来看，却是应该可以看得到的
+
+```
+
+4. try里有return，难么finally还会执行吗
+```
+肯定会执行。finally{}块的代码。 只有在try{}块中包含遇到System.exit(0)。 之类的导致Java虚拟机直接退出的语句才会不执行
+```
