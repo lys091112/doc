@@ -37,6 +37,7 @@ ClassName.this
 class1.isAssignableFrom(class2) 用来表示class1 是否是 class2 的父类或父接口
 
 obj instanceof Class 判断某个对象是否是某个类的实例
+
 ```
 
 ### Java中的一些基础知识
@@ -86,4 +87,10 @@ ConcurrentHashMap的get，clear，iterator 都是弱一致性的。 Doug Lea 也
 4. try里有return，难么finally还会执行吗
 ```
 肯定会执行。finally{}块的代码。 只有在try{}块中包含遇到System.exit(0)。 之类的导致Java虚拟机直接退出的语句才会不执行
+```
+
+5. 单独运行一个class文件
+```
+需要加上 -cp . 表示以当前路径作为classpath路径
+java -cp . packagex.MainClass
 ```

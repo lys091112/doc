@@ -1,5 +1,3 @@
-# 经历面试问题总结
-
 ## 数据库方面
 
 1. 数据库设计的三大范式
@@ -10,9 +8,7 @@
     例如：订单明细表：OrderDetail（OrderId, ProductId,单价，折扣，数量，产品名称），对于一个订单它可能有多个商品，那么单单一个OrderId不足以做主键，因此会使用OrderId和ProductId做为联合主键。 折扣，数量是严格与联合主键关联，但是单价，产品名称却只和ProductId相关，因此不满足2NF，所以需要将单价和产品名称拆到一张单独的表中，防止在订单详情表中多余产品信息的冗余（因为如果每个订单都包含订单单价和订单名称，那么多个订单会重复出现该数据，造成冗余）。但是也有意外情况，即我需要单价和产品名称来做历史记录，防止产品信息更改后造成历史数据的丢失
 
     第三范式： 首先是2NF，其次非主键列必须直接依赖于主键列，而不能存在传递依赖，即不能存在A列依赖于B列，B列依赖于主键列
-    例如订单表：Order（OrderID，createTime, customerId, customerName, customerAddr),其中OderID是主键，其他列都于主键相关，但是CustomerName，customerAddr于customerId直接相关，而并非于orderId直接相关，因此不满足3NF，需要将数据库表进行拆分
-
-    其他： BCNF： 
+    例如订单表：Order（OrderID，createTime, customerId, customerName, customerAddr),其中OderID是主键，其他列都于主键相关，但是CustomerName，customerAddr于customerId直接相关，而并非于orderId直接相关，因此不满足3NF，需要将数据库表进行拆分 其他： BCNF： 
     第四范式：要求把同一表内的多对多关系删除
     五范式：从最终结构重新建立原始结构？？
 
@@ -62,6 +58,9 @@ Innodb引擎提供了对数据库ACID事务的支持，并且实现了SQL标准�
 MyIASM是MySQL默认的引擎，但是它没有提供对数据库事务的支持，也不支持行级锁和外键，因此当INSERT(插入)或UPDATE(更新)数据时即写操作需要锁定整个表，效率便会低一些。不过和Innodb不同，MyIASM中存储了表的行数，于是SELECT COUNT(*) FROM TABLE时只需要直接读取已经保存好的值而不需要进行全表扫描。如果表的读操作远远多于写操作且不需要数据库事务的支持，那么MyIASM也是很好的选择
 
 大尺寸的数据集趋向于选择InnoDB引擎，因为它支持事务处理和故障恢复。数据库的大小决定了故障恢复的时间长短，InnoDB可以利用事务日志进行数据恢复，这会比较快。主键查询在InnoDB引擎下也会相当快，不过需要注意的是如果主键太长也会导致性能问题，关于这个问题我会在下文中讲到。大批的INSERT语句(在每个INSERT语句中写入多行，批量插入)在MyISAM下会快一些，但是UPDATE语句在InnoDB下则会更快一些，尤其是在并发量大的时候
+
+4. 其他
+    useServerPrestmts=true 开启PreparedStatemeng的缓存
 
 ## ZK+Kafka
 1. 为什么kafka需要使用zkeeper， 能够替代zk
@@ -171,37 +170,169 @@ MyIASM是MySQL默认的引擎，但是它没有提供对数据库事务的支持
     
 
 3. Redis的数据key返回类型有那些
-Type 命令用于返回 key 所储存的值的类型
-- String 
-- Hash
-- List
-- Set
-- Sorted set
-- pub/sub
-- Transactions
+    Type 命令用于返回 key 所储存的值的类型
+    - String 
+    - Hash
+    - List
+    - Set
+    - Sorted set
+    - pub/sub
+    - Transactions
 
 4. Redis的常见问题
 
 5. Redis 淘汰策略
-- volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
-- volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
-- volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
-- allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰
-- allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰
-- no-enviction（驱逐）：禁止驱逐数据
+    - volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
+    - volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
+    - volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
+    - allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰
+    - allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰
+    - no-enviction（驱逐）：禁止驱逐数据
+
+6. redis, mongdb, hbase的使用与区别
 
 ## Java 基础
 
 1. JVM内存模型，以及各个模块的作用
 
+    - 线程私有域:
+        1.  Program Counter Register(程序计数器), 作用是当前线程所执行字节码的行号指示器(类似于传统cpu的pc), 字节码解释器就是通过改变PC值来选取下一条需要执行的字节码指令,分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖PC完成
+        2. Java Stack(虚拟机栈) 虚拟机栈描述的是Java方法执行的内存模型: 每个方法被执行时会创建一个栈帧(Stack Frame)用于存储局部变量表、操作数栈、动态链接、方法出口等信息. 每个方法被调用至返回的过程, 就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程
+        3. Native Method Stack(本地方法栈)：基本同虚拟机栈，本地方法栈则为Native方法服务
+    - 线程共享区域
+        1. Method Area(方法区),即我们常说的永久代，用于存储被JVM加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。 运行时常量池，方法区的一部分. Class文件中除了有类的版本、字段、方法、接口等描述信息外,还有一项常量池(Constant Pool Table)用于存放编译期生成的各种字面量和符号引用
+        2. Heap(Java堆) 几乎所有对象实例和数组都要在堆上分配(栈上分配、标量替换除外), 因此是VM管理的最大一块内存, 也是垃圾收集器的主要活动区域. 由于现代VM采用分代收集算法, 因此Java堆从GC的角度还可以细分为: 新生代(Eden区、From Survivor区和To Survivor区)和老年代; 而从内存分配的角度来看, 线程共享的Java堆还还可以划分出多个线程私有的分配缓冲区(TLAB). 而进一步划分的目的是为了更好地回收内存和更快地分配内存
+    - 直接内存
+        直接内存并不是JVM运行时数据区的一部分, 但也会被频繁的使用: 在JDK 1.4引入的NIO提供了基于Channel与Buffer的IO方式, 它可以使用Native函数库直接分配堆外内存, 然后使用DirectByteBuffer对象作为这块内存的引用进行操作(详见: Java I/O 扩展), 这样就避免了在Java堆和Native堆中来回复制数据, 因此在一些场景中可以显著提高性能.
+
+
 2. 常用集合类以及AQS的作用
 
 3. synchronized 锁的类型和锁的作用范围
+    synchronized 是针对于对象级别的锁，如果同于同一个类有多个实例，那么实例与实例之间是不会受synchronized影响
+    synchronized的底层实现主要依靠Lock-Free的队列，基本思路是自旋后阻塞，竞争切换后继续竞争锁，稍微牺牲了公平性，但获得了高吞吐量
 
 4. synchronized 与 Lock的区别
 
+    - 锁的种类
+        1. 可重入锁:synchronized和ReentrantLock都是可重入锁，可重入性在我看来实际上表明了锁的分配机制：基于线程的分配，而不是基于方法调用的分配。举比如说，当一个线程执行到method1 的synchronized方法时，而在method1中会调用另外一个synchronized方法method2，此时该线程不必重新去申请锁，而是可以直接执行方法method2
+        2. 读写锁;读写锁将对一个资源的访问分成了2个锁，如文件，一个读锁和一个写锁。正因为有了读写锁，才使得多个线程之间的读操作不会发生冲突
+        3. 可中断锁:在Java中，synchronized就不是可中断锁，而Lock是可中断锁。 如果某一线程A正在执行锁中的代码，另一线程B正在等待获取该锁，可能由于等待时间过长，线程B不想等待了，想先处理其他事情，我们可以让它中断自己或者在别的线程中中断它，这种就是可中断锁
+        4.  公平锁:公平锁即尽量以请求锁的顺序来获取锁。同时有多个线程在等待一个锁，当这个锁被释放时，等待时间最久的线程（最先请求的线程）会获得该锁公平锁即尽量以请求锁的顺序来获取锁
+    - syncchronized 的用法
+        1. 锁定一段代码块
+        2. 锁定一个方法
+        3. 锁定一个类实例 例如：synchronized(this)
+        4. 锁定一个类 例：synchronized(Test.class)
+    - lokc 常见方法
+        1. void lockInterruptibly() throws InterruptedException;
+        2. boolean tryLock(); 
+        3. boolean tryLock(long time, TimeUnit unit) throws InterruptedException; 
+        4. void unlock(); 
+        5. Condition newCondition();
+    - 两种锁对比：
+        1. lock是一个接口，而synchronized 是java内置关键字
+        2. synchronized 发生异常时会自动释放锁，而lock需要手动释放，一般会使用try{}finallly{}结构并在finally中释放
+        3. lock 可以使等待锁线程响应中断，而synchronized不能响应中断，会一直等下去
+        4. lock可以知道锁的状态，而synchronized无法知道
+
+
 5. 常用的线程安全类以及使用场景
+    5.1. java 线程池
+        - **ThreadPoolExecutor参数信息**
+
+        | 参数名 | 作用|
+        |-------|-------|
+        | corePoolSize | 核心线程池大小|
+        | maximumPoolSize| 最大线程池大小 |
+        | keepAliveTime| 线程池中超过corePoolSize数目的空闲线程最大存活时间 |
+        | timeUnit | keepAliveTime时间单位 |
+        | workQueue| 阻塞任务队列|
+        | threadFactory | 新建线程工程，常用来制定线程名称等 |
+        | RejectedExecutionHandler | 当提交任务数超过maxmumPoolSize+workQueue之和时，任务会交给RejectedExecutionHandler来处理 |
+
+        - **corePoolSize, workQueue, maximumPoolSize 的关系**
+
+        ```
+        有新的任务时：
+            当线程数小于核心线程数时，创建新线程。
+            当线程数大于等于核心线程数，且任务队列未满时，将任务放入任务队列，此时不会创建新线程。
+            当线程数大于等于核心线程数，且任务队列已满
+            若线程数小于最大线程数，创建新线程
+            若线程数等于最大线程数，抛出异常，拒绝任务
+        ```
 
 6. ThreadLocal的使用场景
+    - 日期的初始化，因为日期格式化函数非线程安全，保证每个线程使用的日期格式化函数都是各自唯一的
+    - 保存数据库连接Connection， 保证每个线程都使用线程唯一的connection处理连接
 
 7. IO, NIO, AIO的区别
+    - IO(同步阻塞BIO)
+        同步并阻塞，服务器实现模式为一个连接一个线程，即客户端有连接请求时服务器端就需要启动一个线程进行处理，如果这个连接不做任何事情会造成不必要的线程开销，当然可以通过线程池机制改善。
+    - NIO(同步非阻塞)
+        同步非阻塞，服务器实现模式为一个请求一个线程，即客户端发送的连接请求都会注册到多路复用器上，多路复用器轮询到连接有I/O请求时才启动一个线程进行处理。用户进程也需要时不时的询问IO操作是否就绪，这就要求用户进程不停的去询问
+    - AIO(异步非阻塞)
+        服务器实现模式为一个有效请求一个线程，客户端的I/O请求都是由OS先完成了再通知服务器应用去启动线程进行处理
+
+8. 直接内存和非直接内存的区别
+    - 性能比较：
+         直接内存申请空间耗费更高的性能，当频繁申请到一定量时尤为明显
+        直接内存IO读写的性能要优于普通的堆内存，在多次读写操作的情况下差异明显
+    - 从数据流的角度，来看
+        非直接内存作用链:
+        本地IO –>直接内存–>非直接内存–>直接内存–>本地IO
+        直接内存作用链:
+        本地IO–>直接内存–>本地IO
+
+    直接内存的使用场景：1.  有很大的数据需要存储，它的生命周期很长 2. 适合频繁的IO操作，例如网络并发场景
+    正常情况下，JVM创建缓冲区的时候做了如下几步：
+    1.JVM确保Heap区域内的空间足够，如果不够则使用触发GC在内的方法获得空间;
+    2.获得空间之后会找一组堆内的连续地址分配数组, 这里需要注意的是，在物理内存上，这些字节是不一定连续的;
+    3.对于不涉及到IO的操作，这样的处理没有任何问题，但是当进行IO操作的时候就会出现一点性能问题.
+
+    所有的IO操作都需要操作系统进入内核态才行，而JVM进程属于用户态进程, 当JVM需要把一个缓冲区写到某个Channel或Socket的时候，需要切换到内核态.
+
+    而内核态由于并不知道JVM里面这个缓冲区存储在物理内存的什么地址，并且这些物理地址并不一定是连续的(或者说不一定是IO操作需要的块结构)，所以在切换之前JVM需要把缓冲区复制到物理内存一块连续的内存上, 然后由内核去读取这块物理内存，整合成连续的、分块的内存.
+
+    也就是说如果我们这个时候用的是非直接缓存的话，我们还要进行“复制”这么一个操作，而当我们申请了一个直接缓存的话，因为他本是就是一大块连续地址，我们就可以直接在它上面进行IO操作，省去了“复制”这个步骤
+
+9. 范型以及范型的使用
+   class Fruit{} 
+   class Apple extend Fruit{}
+   class Orange extend Fruit{}
+    <? extends Fruit> 上界通配符，表示元素是任何从Fruit类型继承的列表，但该元素可能是Apple，也可能是Orange， 因此无法确定可以添加的具体类型，也就是该范型变量无法添加元素，只能从其中获取
+    <? super Fruit> 下界通配符，表明元素是具有任何Fruit的超类的列表。列表至少是一个Fruilt型，因此可以添加Fruit以及Fruilt的子类。 但是取元素时需要进行强转。
+
+10. 数据库分库分表
+
+11. java JNDI RMI JMS
+    - JNDI java（Java Naming and Directory Interface）：java命名和目录接口,它是为JAVA应用程序提供命名和目录访问服务的API
+    - RMI:远程方法调用(Remote Method Invocation)。能够让在某个java虚拟机上的对象像调用本地对象一样调用另一个java 虚拟机中的对象上的方法
+    ```
+    clent.java
+        Hello h = (Hello)Naming.lookup("rmi://192.168.58.164:12312/Hello");
+        System.out.println(h.sayHello("zx"));
+        1. 从代码中也可以看到，代码依赖于ip与端口
+        2. RMI依赖于Java远程消息交换协议JRMP（Java Remote Messaging Protocol），该协议为java定制，要求服务端与客户端都为java编写
+
+    ```
+    - JMS即Java消息服务（Java Message Service）应用程序接口，是一个Java平台中关于面向消息中间件（MOM）的API，用于在两个应用程序之间，或分布式系统中发送消息，进行异步通信。Java消息服务是一个与具体平台无关的API，绝大多数MOM提供商都对JMS提供支持
+    ```
+        1、Point-to-Point(P2P)
+　　　　2、Publish/Subscribe(Pub/Sub)
+
+    ```
+
+12. thread 
+
+    - wait() and sleep()方法的区别： wait() 会释放锁，而sleep()不会释放锁
+    - wait() and notify() 是Object的方法，而不是Thread的方法
+    - 状态说明：
+        1. 新建(new)：新创建了一个线程对象。
+        2. 可运行(runnable)：线程对象创建后，其他线程(比如main线程）调用了该对象的start()方法。该状态的线程位于可运行线程池中，等待被线程调度选中，获取cpu 的使用权 。
+        3. 运行(running)：可运行状态(runnable)的线程获得了cpu 时间片（timeslice） ，执行程序代码。
+        4. 阻塞(block)：阻塞状态是指线程因为某种原因放弃了cpu 使用权，也即让出了cpu timeslice，暂时停止运行。直到线程进入可运行(runnable)状态，才有机会再次获得cpu timeslice 转到运行(running)状态。阻塞的情况分三种：
+            (一). 等待阻塞：运行(running)的线程执行o.wait()方法，JVM会把该线程放入等待队列(waitting queue)中。
+            (二). 同步阻塞：运行(running)的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则JVM会把该线程放入锁池(lock pool)中。
+            (三). 其他阻塞：运行(running)的线程执行Thread.sleep(long ms)或t.join()方法，或者发出了I/O请求时，JVM会把该线程置为阻塞状态。当sleep()状态超时、join()等待线程终止或者超时、或者I/O处理完毕时，线程重新转入可运行(runnable)状态。
+        5. 死亡(dead)：线程run()、main() 方法执行结束，或者因异常退出了run()方法，则该线程结束生命周期。死亡的线程不可再次复生。
