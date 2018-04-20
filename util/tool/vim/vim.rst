@@ -16,6 +16,8 @@
     * nmap, nnoremap的区别:
         nmap的映射可能会形成循环，如：nmap dd o<esc>jddk, 本意是删除一行，但实际会死循环，需要<c-c>进行介绍
         nnoremap 可以防止死循环
+    * set cursorcolumn 高亮当前列
+    * set cursorline  高亮光标行
 
 编辑行 
 ~~~~~~
@@ -36,8 +38,7 @@
             命令: 10i* //表示在该位置上插入10个*
                   10o### //表示在该行下方插入10行### 
             其他组合命令可以自己去定义
-        4. Unicode字符插入
-           方式一：CTRL+v+{unicode码} <C-v>065 十进制代表A  <C-v>U9690 隐, 详情可以查看:h i_CTRL-v_digit  ga命令可以显示字符的进制码 
+        4. Unicode字符插入 方式一：CTRL+v+{unicode码} <C-v>065 十进制代表A  <C-v>U9690 隐, 详情可以查看:h i_CTRL-v_digit  ga命令可以显示字符的进制码 
            方式二：使用而合字母，CTRL+K+{code1}{code2} 详情:h digraph 
 
 vim 宏录制
