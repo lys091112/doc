@@ -12,6 +12,5 @@ Welcome to skill's documentation!
  :glob:
 
  linux
- language
  tool
 
