@@ -102,3 +102,12 @@ ConcurrentHashMap的get，clear，iterator 都是弱一致性的。 Doug Lea 也
 需要加上 -cp . 表示以当前路径作为classpath路径
 java -cp . packagex.MainClass
 ```
+
+6java运行过程中如何加载配置文件
+```
+    1. 通过在执行过程中添加系统变量，如-Dconfig-dir=/home/xianyue/... 然后在程序中使用System.getProperties("")来获取配置文件位置
+
+    2. 在通过java -cp执行过程中，配置加载的第一个文件目录即为默认的运行目录，可以通过this.class.getClassLoader().getResource("").getPath()获取
+       如，java -java:hello.jar:./conf:.conf1 那么获取的路径为.../conf
+
+```

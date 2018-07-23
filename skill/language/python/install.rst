@@ -68,4 +68,13 @@ mac下pip权限问题
     sudo --help
     -H, --set-home              set HOME variable to target user's home dir
 
+安装virtualenv
+~~~~~~~~~~~~~~~
 
+::
+
+    安装python虚拟环境：
+    创建一个自定义目录
+    sudo pip3 uninstall virtualenv #如果安装完后无法找到virtualenv命令，则unintall然后重新安装
+    virtualenv --no-site-packages venv # 创建名为venv的环境, venv名称可以自定义
+    source venv/bin/activate  #通过该命令启动activate虚拟环境

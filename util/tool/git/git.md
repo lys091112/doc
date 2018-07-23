@@ -35,6 +35,9 @@ git 初始化工作
 
     16. git remote prune origin  #清理掉不存在远程分支的本地分支
 
+    17. git branch --set-upstream-to=origin/<分支> <local_branch>  # 为本地分支创建远程跟踪记录
+
+
 
 ### 2.git高级使用
 #### 2.1. git subtree 使用
