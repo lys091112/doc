@@ -43,6 +43,8 @@ mac下pip权限问题
     参考链接： https://github.com/pypa/pip/issues/3165
     执行命令如下： sudo -H pip install sphinx sphinx-autobuild --ignore-installed six  (忽略six文件)
 
+    You are using pip version 9.0.1, however version 9.0.3 is available. You should consider upgrading
+    python -m pip install --upgrade pip
 
 执行时缺少包依赖问题
 ~~~~~~~~~~~~~~~~~~~~

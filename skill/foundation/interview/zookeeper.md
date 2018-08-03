@@ -1,4 +1,4 @@
-# Zookeeper
+# Zookeeper +kafka
 
 1. zookeeper是如何保证事务的顺序一致性的
 
@@ -48,3 +48,11 @@
     - Server地址能够重复配置，这样能够弥补客户端无法设置Server权重的缺陷，但是也会加大风险。（比如: 192.168.1.1:2181,192.168.1.1:2181,192.168.1.2:2181).
     - 如果客户端在进行Server切换过程中耗时过长，那么将会收到SESSION_EXPIRED. 这也是上面第1点中的加大风险之处。 
 
+
+## Kafka
+
+1. kafka高效的数据传输
+```
+使用是java Api中FileChannel的transferTo方法，可以直接磁盘文件到套接字。
+而不用通过，磁盘文件-内核空间-用户空间-socketbuffer这样的流程
+```

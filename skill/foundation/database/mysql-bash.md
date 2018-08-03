@@ -56,3 +56,51 @@
 |Threads_running| 不在睡眠的线程数量。 |
 |Uptime| 服务器工作了多少秒。|
 
+
+2. lock 相关参数 
+```
+show status like 'table%'
+
+    Table_locks_immediate：产生表级锁定的次数；
+    Table_locks_waited：出现表级锁定争用而发生等待的次数；
+
+show status like 'InnoDB_row_lock%';
+
+    InnoDB_row_lock_current_waits：当前正在等待锁定的数量；
+    InnoDB_row_lock_time：从系统启动到现在锁定总时间长度；
+    InnoDB_row_lock_time_avg：每次等待所花平均时间；
+    InnoDB_row_lock_time_max：从系统启动到现在等待最常的一次所花的时间；
+    InnoDB_row_lock_waits：系统启动后到现在总共等待的次数；
+
+
+    #正在执行的事务
+    SELECT * from information_schema.INNODB_TRX;
+    #当前出现的锁等待
+    SELECT * from information_schema.INNODB_LOCK_WAITS;
+    #出现锁等待的锁的详细信息
+    SELECT * from information_schema.INNODB_LOCKS;
+    #查看全部线程，辅助定位客户端的主机ip，连接用户名等
+    show full processlist;
+    #如果活跃事务少，会显示当前活跃的事务详细信息，多的话只显示概要；最近一次死锁的信息
+    show engine innodb status;
+```
+
+3. 查询修改mysql事务隔离级别
+```
+select @@tx_isolation
+set global tx_isolation='REPEATABLE-READ';
+set tx_isolation='READ-COMMITTED';
+```
+
+4. 查询数据库的死锁信息
+```
+show engine innodb status \G;
+```
+
+
+5. 锁冲突的表、数据行等，并分析锁争用的原因
+```
+create table InnoDB_monitor(a INT) engine=InnoDB;
+show engine InnoDB status;
+drop table InnoDB_monitor;
+```

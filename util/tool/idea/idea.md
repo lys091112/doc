@@ -32,6 +32,10 @@
         <name>Nexus aliyun</name>  
         <url>http://maven.aliyun.com/nexus/content/groups/public</url>
     </mirror>
+
+idea 配置代理
+ 打开本地shadowsock，然后在idea中配置代理信息
+ host：127.0.0.1 port: 1080
 ```
 
 ### 快捷键
