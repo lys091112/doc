@@ -1,3 +1,22 @@
+# Install
+
+
+
+### 安装流程如下：　
+
+```sh
+curl -O https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz  # 可以从pan.baidu.com下载
+tar -C /usr/local -zxvf go1.9.linux-amd64.tar.gz  
+mkdir -p ~/xianyue/workspace/own/go/src  
+echo "export GOPATH=$HOME/xianyue/workspace/own/go" >> ~/.profile
+echo "export PATH=$PATH:$GOPATH/bin:/usr/local/go/bin" >> ~/.profile
+#source ~/.bashrc  
+source ~/.zshrc
+go version 
+
+```
+
+
 # 使用过程中碰到的问题
 
 ### In Gogland I get 'flag provided but not defined: -goversion' using go run

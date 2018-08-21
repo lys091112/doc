@@ -13,3 +13,5 @@ function untar_payload()
 }
 
 ```
+
+2. grep -v (需要被过滤的字段)

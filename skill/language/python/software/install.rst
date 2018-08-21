@@ -22,6 +22,22 @@ python 安装过程中碰到的问题
     trusted-host=mirrors.aliyun.com
 
 
+常用软件列表
+~~~~~~~~~~~~~~~~~~~~
+
+::
+    
+    pip3 install --upgrade numpy
+    pip3 install pandas
+    pip3 install sklearn
+    pip3 install urllib
+
+* scrapy
+
+::
+    简介： python版网络爬虫工具
+    安装命令： pip3 install scrapy
+
 
 安装过程碰到的错误
 -------------------
@@ -69,14 +85,3 @@ mac下pip权限问题
     提示很清楚，需要在sudo后添加参数-H来执行
     sudo --help
     -H, --set-home              set HOME variable to target user's home dir
-
-安装virtualenv
-~~~~~~~~~~~~~~~
-
-::
-
-    安装python虚拟环境：
-    创建一个自定义目录
-    sudo pip3 uninstall virtualenv #如果安装完后无法找到virtualenv命令，则unintall然后重新安装
-    virtualenv --no-site-packages venv # 创建名为venv的环境, venv名称可以自定义
-    source venv/bin/activate  #通过该命令启动activate虚拟环境

@@ -1,5 +1,19 @@
 # java 一些基本使用和概念
 
+
+# javaDoc
+```
+    @see 的句法有三种：
+       1. @see 类名
+       2. @see #方法名或属性名
+       3. @see 类名#方法名或属性名
+    @author 作者名
+　　@version 版本号
+    @param 参数名 参数说明
+    @return 返回值说明
+    @exception 异常类名 说明
+```
+
 * java远程调试参数含义
     * java远程调试是两个vm通过debug协议进行调试，通过socket通信。jdwp是java debug wire protocol的缩写
       jdk1.7之前：java -Xdebug -Xrunjdwp:server=y,transport=dt_socket,address=8000,suspend=n main_application&
