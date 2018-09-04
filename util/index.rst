@@ -7,10 +7,13 @@ Welcome to skill's documentation!
 =================================
 
 .. toctree::
- :maxdepth: 2
- :numbered:
+ :maxdepth: 1
+ :name: mastertoc
  :glob:
 
- system
- tool
+ system/linuxIndex
+ system/macIndex
+
+ records/toolIndex
+ records/mongodbIndex
 

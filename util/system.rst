@@ -4,14 +4,12 @@ Linux 相关
 ------------------
 
 .. toctree::
-  :maxdepth: 2
+  :maxdepth: 1
   :glob:
   :name: mastertoc
   :numbered:
 
-  operateSystem/linux/basic/*
-  operateSystem/linux/error/*
-  operateSystem/linux/software/*
+  system/linuxIndex
 
 Mac 学习
 -----------
@@ -22,5 +20,5 @@ Mac 学习
   :name: mastertoc
   :numbered:
 
-  operateSystem/mac/*
+  system/mac/*
 

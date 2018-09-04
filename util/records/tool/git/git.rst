@@ -1,13 +1,26 @@
+.. highlight:: rst
 
+Git 基础命令
+------------------
+
+.. toctree::
+  :maxdepth: 1
+  :glob:
+  :name: mastertoc
+  :numbered:
 
 git 初始化工作
-* git config --global user.name "xianyue"
-* git config --global user.email "lys091112@gmail.com"
-* git config --global core.editor vim  (指定git rebase默认使用的编辑器)
-* git config --global credential.helper store (会默认在下次执行时，记忆上次的提交密码)
+^^^^^^^^^^^^^^^^^^
+::
+    * git config --global user.name "xianyue"
+    * git config --global user.email "lys091112@gmail.com"
+    * git config --global core.editor vim  (指定git rebase默认使用的编辑器)
+    * git config --global credential.helper store (会默认在下次执行时，记忆上次的提交密码)
 
-### 1.基本命令
-   
+基本命令
+^^^^^^^^^^^^^
+::   
+
     1.  git branch -d test                       #删除本地分支 
     2.  git push origin --delete test            #删除远程分支
     3.  git commit合并                           #-i代表的是不包含的commit的hash值
@@ -39,9 +52,12 @@ git 初始化工作
 
 
 
-### 2.git高级使用
-#### 2.1. git subtree 使用
+git高级使用
+^^^^^^^^^^^^
 
+git subtree 使用
+~~~~~~~~~~~~~~~~~~~~~
+::
     1. 从ai-dm删除想要抽离的文件并commit到本地
     2. 列出所有删除的文件 (git show --pretty="" --name-only <SHA1> > keep-these.txt)
     3. 将ai-dm clone到新项目文件夹 agent-cmd-service //git clone git@git.com/ai-dm.git agent-cmd-service
@@ -59,11 +75,11 @@ git 初始化工作
     注意: 从subtree进行更新
     git subtree pull --prefix=agent-cmd-service --squash cmd-service master
     git subtree push --prefix=agent-cmd-service --squash cmd-service master
-    参数解析->: agent-cmd-service 在application-insight下关联的subtree目录
-               cmd-service 关联的subtree的远程节点别名
-               master 远程subtree分支名称
+    参数解析->: agent-cmd-service 在application-insight下关联的subtree目录 cmd-service 关联的subtree的远程节点别名 master 远程subtree分支名称
 
-#### 2.2. git submodule 使用
+git submodule 使用
+~~~~~~~~~~~~~~~~~~
+::
 
     1. 创建新的仓库（b-service)
     2. 在a-service中添加新的远程项目（例如：git remote add bservice git@scm.xxx:me:ai/s-service.git) 
@@ -85,7 +101,9 @@ git 初始化工作
           这可能需要你在submodule下执行get fetch ,更新远端最新代码，然后在进行check
 
 
-#### 2.3. 修改历史提交
+修改历史提交
+~~~~~~~~~~~~
+::
 
     1. git rebase -i HEAD~3
     2. 修改要修改的注释行，将其pick改为edit
