@@ -3,6 +3,7 @@
 ### 安装shadowsocks
 
 1. sudo pip install shadowsocks
+   sudo apt install shadowsocks
 
 2. 自定义目录，例如~/xianyue/hongxing/， 在该目录下建立文件shadowsocks.json,内容如下:
 

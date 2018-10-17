@@ -15,7 +15,8 @@ Welcome to skill's documentation!
  system/macIndex
 
  records/toolIndex
- records/mongodbIndex
+ records/index/mongodbIndex
+ records/index/algorithmIndex
 
  records/rstGrammer
 

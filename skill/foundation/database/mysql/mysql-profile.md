@@ -1,4 +1,4 @@
-# Mysql 性能调优相关
+# Mysql 语句相关
 
 
 - 数据库表结构中的 `text` 等大字段的设计
@@ -28,4 +28,20 @@ CREATE TABLE `timestampTest` (
   `last_modify_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+```
+
+- 数据库表字段修改
+```
+ALTER TABLE `alert_action` add COLUMN `tenant` varchar(4) NOT NULL DEFAULT "ai";
+
+
+索引修改
+ALTER TABLE `alert_policy` DROP INDEX i_application_name;
+CREATE INDEX i_app_tenant_name ON `alert_policy` (`application_id`, `tenant`, `name`); 
+
+## 修改并添加自增主键
+ALTER TABLE `alert_application_switch` DROP PRIMARY KEY;
+ALTER TABLE `alert_application_switch` ADD `id` BIGINT(32) NOT NULL first;
+ALTER TABLE `alert_application_switch` CHANGE COLUMN `id` `id` BIGINT(32) NOT NULL AUTO_INCREMENT PRIMARY KEY;
 ```

@@ -4,6 +4,24 @@
    :maxdepth: 2
    :glob:
 
+装机必备的基础软件
+----------------------
+
+.. code-block:: sh
+
+    sudo apt install vim
+    sudo apt install git
+
+    sudo apt install zsh
+
+    sudo  apt-get install openssh-server
+    service ssh start # 开启
+    /etc/init.d/ssh start # 关闭
+
+
+
+
+
 系统软件安装与删除
 -------------------
 
@@ -36,3 +54,14 @@
          sudo apt-get --purge remove nginx
          sudo apt-get autoremove # 自动移除全部不使用的软件包
          dpkg --get-selections|grep nginx #罗列出与nginx相关的软件
+
+
+2. E: dpkg 被中断,您必须手工运行 ‘sudo dpkg --configure -a’ 解决此问题
+
+::
+    
+    导致这个问题的主要原因是因为/var/lib/dpkg/updates文件下的文件有问题，可能是其他软件安装过程或是其他原因导致的，这里删除掉然后重建即可。
+
+    sudo rm /var/lib/dpkg/updates/*
+    sudo apt-get update
+    sudo apt-get upgrade

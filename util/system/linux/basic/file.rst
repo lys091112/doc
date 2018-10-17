@@ -40,6 +40,7 @@
         -p : 使用文件的原来属性
         -P : 可以使用绝对路径来压缩
         -N : 比后面的日期(yyyy/mm/dd)新的才会被打包进新文件中
+        -v : 显示解压压缩过程
         --exclude FILE : 在压缩过程中，不将FILE打包
         示例:
             tar -zcvf /tmp/etc.tar.gz ##>打包成/tmp/etc.tar.gz后，以gzip来压缩
