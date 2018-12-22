@@ -50,3 +50,56 @@
 4) dependency
 
     在引入依赖时，要根据依赖的属性进行scope的分配，如果是test类型，一定要添加test的scope，不然可能会与compile类型的包冲突
+
+5. 指定mvn编译的jdk版本
+
+需要添加插件tool-chians， 步骤如下：
+
+    1. 添加文件$HOME/.m2/toolchains.xml ,并添加如下内容：
+         <toolchains>
+          <toolchain>
+            <type>jdk</type>
+            <provides>
+              <version>11</version>
+              <vendor>oracle</vendor>
+            </provides>
+            <configuration>
+              <!-- 真实的JDK地址 -->
+              <jdkHome>${Home}/xianyue/software/jdk-11</jdkHome>
+            </configuration>
+        </toolchain>
+
+        <toolchain>
+            <type>jdk</type>
+            <provides>
+              <version>8</version>
+              <vendor>oracle</vendor>
+            </provides>
+            <configuration>
+              <jdkHome>>${Home}/xianyue/software/jdk1.8.0_171</jdkHome>
+            </configuration>
+          </toolchain>
+        </toolchains>
+
+    2. 项目pom添加如下插件：
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-toolchains-plugin</artifactId>
+          <version>1.1</version>
+          <configuration>
+            <toolchains>
+                <jdk>
+                    <version>11</version>
+                    <vendor>oracle</vendor>
+                </jdk>
+            </toolchains>
+          </configuration>
+          <executions>
+            <execution>
+                  <goals>
+                    <goal>toolchain</goal>
+                </goals>
+            </execution>
+          </executions>
+        </plugin>

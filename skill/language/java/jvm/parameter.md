@@ -21,6 +21,9 @@
 -XX:VMThreadStackSize            # vm内部的线程比如gc线程等
 -XX:+PrintGCDetails              # 打印GC日志
 -XX:+PrintGCTimeStamps           # 打印GC时间戳
+-XX:-OmitStackTraceInFastThrow   # 不设置该参数的话， 非热点内置异常。如果异常被抛出数次，就变成”hot“了，这时就会丢失异常信息,如null指针异常丢失，因为这时的异常是预先分配的。通常启动jvm是需要添加该参数
+-XX:+HeapDumpOnOutOfMemoryError  # 让JVM碰到OOM的时候，输出dump信息。
+-XX:PretenureSizeThreshold   #用于将指定大小的对象直接分配到老年代，避过新生代
 
 
 
@@ -62,5 +65,4 @@ java -server -Xms2g -Xmx4g
 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/oneapm/local/alert-consumer/logs -XX:ErrorFile=/oneapm/local/alert-consumer/logs/err.log
 
 -Dfile.encoding=UTF-8 -Djava.awt.headless=true -Dsun.net.inetaddr.ttl=0 -Djava.net.preferIPv4Stack=true -Djava.security.egd=file:/dev/./urandom
-
 ```

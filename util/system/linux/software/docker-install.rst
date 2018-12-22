@@ -73,6 +73,30 @@ docker-compose 安装
     docker-compose --version
 
 
+更换docker的存储路径
+=======================
+
+将docker镜像的存储放置到自己的空间目录下
+
+::
+
+    ln -sf ~/.docker /var/lib/docker/
+    
+
+安装完成后，执行 docker ps 报错如下：
+    ``ot permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.26/images/json: dial unix /var/run/docker.sock: connect: permission denied``
+
+解决方式如下：
+
+::
+
+    sudo groupadd docker   # 添加docker组
+    sudo gpasswd -a ${USER} docker #将用户添加到docker组中
+    sudo service docker restart  # 重新启动该docker服务
+    newgrp - docker # 切换当前会话到新group 或者重启会话
+
+
+
 安装脚本
 ==========
 

@@ -66,6 +66,7 @@ jstat -gcnew pid  #查看新生代的对象信息
 jstat -gcold pid  #查看老年代的对象信息
 jstat -gcoldcapacity pid  # 老年代对象的信息及其占用量
 jstat -class pid  # 加载的类数据及占用的空间信息
+jstat  -gcutil  pid 1000 每隔一秒钟，打印一次GC情况
 
 ```
 
