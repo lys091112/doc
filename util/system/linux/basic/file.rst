@@ -49,3 +49,10 @@
             tar exclude /home/dmtsai -zcvf myfile.tar.gz /home/* /etc ##>备份/home,/etc,但不包含/home/dmtsai
             tar -cvf - /etc | tar -xvf - ##>等价与cp -r /etc /tmp
             tar --exclude ./application-insight/.git -zcvf app.tar.gz ./application-insight/*
+
+
+     zip 压缩
+
+
+        示例：
+        zip -r target.zip sourcedir

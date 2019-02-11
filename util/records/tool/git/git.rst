@@ -50,6 +50,11 @@ git 初始化工作
 
     17. git branch --set-upstream-to=origin/<分支> <local_branch>  # 为本地分支创建远程跟踪记录
 
+    18. git fetch origin master   # 将master分支合并到本地分支
+        git merge --no-ff FETCH_HEAD
+
+
+        // TODO --no-ff -ff 的区别
 
 
 git高级使用
