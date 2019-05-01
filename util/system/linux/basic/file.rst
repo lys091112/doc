@@ -1,7 +1,4 @@
-
-.. toctree::
-   :maxdepth: 2
-   :glob:
+.. highlight:: rst
 
 文件操作
 ----------
@@ -22,6 +19,7 @@
 ::
 
     1. sudo du -h --max-depth=1 | grep 'G' | sort -n  #查询文件大小
+    2. df -h 查看磁盘总量  
 
 
 文件压缩
@@ -56,3 +54,52 @@
 
         示例：
         zip -r target.zip sourcedir
+    
+            
+系统操作
+系统基本信息
+~~~~~~~~~~~~~~
+
+::
+
+    1. cat /proc/cpuinfo , lscpu  查看cpu信息
+    2. lsof -i tcp:8123  # 查看端口8123的占有情况
+
+系统软件删除
+~~~~~~~~~~~~~~
+
+::
+
+    aptitude purge $(dpkg -l|grep ^rc|awk '{ print $2 }')
+
+    解释：
+    dpkg -l 列出系统中所有安装的软件，如果是已经删除的软件（有残存的配置文件），那么该的软件包的状态是rc，即开头显赫为rc 然后是空格，然后是软件包的名称
+
+    |grep ^rc 的用处就是找出状态为rc的所有软件包，即以rc开头的行;
+
+    |awk '{ print $2 }' awk可以将输入的字符串用指定的分隔符进行分解，缺省情况下是空格，$2是表示第二个字段，也就是软件包的名称，因为第一个字段是 rc
+
+    $(......)是一个shell表示法，即里面包含括号中的命令输出的内容，实际上是以空格分隔的所有软件包的名称组成的一个字符串
+
+    aptitude purge 就是彻底删除软件包（包括配置文件），如果是残存的配置文件，也可以用这种方式删除
+    其实，grep ^rc可以写成grep rc
+     
+     我在安装某一deb包时发生配置错误，每次安装其他东西都要显示这条错误信息，很烦。
+     用dpkg -l查看包的状态时，发现是iF。就是配置失败。
+     于是，aptitude purge $(dpkg -l|grep iF|awk '{ print $2 }')
+     将其删除。
+
+
+杂项技巧
+------------
+
+小技巧
+~~~~~~
+
+::
+
+    1. 开机自启动
+       vim /etc/rc.local 将自己的脚本写入到里面，例如： cd /home/langle/vpn  sh vpn.sh
+    2. 查看邮件的服务地址是否合法
+        nslookup smtp.exmail.qq.com
+

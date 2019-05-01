@@ -26,6 +26,7 @@
     4.  base64 命令
         echo 'ownStr' | base64 # 将ownStr进行base64转码
         echo 'ownStr' | base64 -d # 将ownStr进行base64解码
+    5. chown -R langle:langle {targetDir} 将某目标文件权限赋予langle
 
 
 杂项技巧

@@ -11,12 +11,8 @@ Welcome to skill's documentation!
  :name: mastertoc
  :glob:
 
- system/linuxIndex
- system/macIndex
+ system/systemIndex
 
- records/toolIndex
- records/index/mongodbIndex
- records/index/algorithmIndex
+ records/recordsIndex
 
- records/rstGrammer
 

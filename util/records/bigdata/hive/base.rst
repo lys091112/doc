@@ -123,3 +123,11 @@ hive 基本函数
     用于判断字符串中是否存在某字符。 函数形式为：
 
     instr(string str, string substr) 返回substr在str中第一次出现的位置。若任何参数为null返回null，若substr不在str中返回0。否则返回字符串的其实位置。 返回结果的下标从1开始
+
+4. 时间函数
+
+::
+
+    unix_timestamp('2018-12-18 00:38:50')*1000 时间戳转化为毫秒
+    unix_timestamp('20111207 13:01:03','yyyyMMdd HH:mm:ss') 日期转化为时间戳
+    from_unixtime(1441565203,'yyyy/MM/dd HH:mm:ss') 时间戳转化为日期

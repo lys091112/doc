@@ -45,6 +45,7 @@ Rst 语法参考
     三级标题
     =========
 
+<<<<<<< Updated upstream
 
 一级标题
 ^^^^^^^^
@@ -400,3 +401,14 @@ This is a doctest block.
 ..
  我是注释内容
  你们看不到我
+
+
+数学表达式
+
+.. math::
+
+    softmax:  S_i=\frac{e^{V_i}}{\sum_i^Ce^{V_i}}
+
+
+# 顶着开头写，不能有空格
+:math:`S_i=\frac{e^{V_i}}{\sum_i^Ce^{V_i}}`

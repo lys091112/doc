@@ -1,7 +1,7 @@
 .. highlight:: rst
 
-Linux
-------------------
+操作系统
+-----------
 
 .. toctree::
   :maxdepth: 2
@@ -9,7 +9,6 @@ Linux
   :name: mastertoc
   :numbered:
 
-  linux/basic/*
-  linux/error/*
-  linux/software/*
+  linuxIndex
 
+  macIndex

@@ -1,15 +1,14 @@
 .. highlight:: rst
 
-Linux
+学习记录 
 ------------------
 
 .. toctree::
-  :maxdepth: 2
+  :maxdepth: 1
   :glob:
   :name: mastertoc
   :numbered:
 
-  linux/basic/*
-  linux/error/*
-  linux/software/*
-
+  languageIndex
+  algorithmIndex
+  toolIndex

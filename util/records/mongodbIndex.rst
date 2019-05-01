@@ -1,6 +1,6 @@
 .. highlight:: rst
 
-Linux
+Mongodb 
 ------------------
 
 .. toctree::
@@ -9,7 +9,5 @@ Linux
   :name: mastertoc
   :numbered:
 
-  linux/basic/*
-  linux/error/*
-  linux/software/*
-
+  ../mongodb/*
+  ../mechine/theory/*
