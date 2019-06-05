@@ -13,7 +13,6 @@
    将对数据库的连接放置到静态类中，这样就保证在一台机器上只会被初始话一次，即便在某台机器上，yigejob被分成多个task，但是他们还是在一个进程内，可以共用静态类 
 
 
-
 2. 数据倾斜的解决办法
 
 ::
@@ -31,3 +30,31 @@
     6、分治法+空间浪费法，将A表中热点KEY的数据单独提取出来，对KEY加上随机前缀；然后将B表对应热点KEY的数据提取出来，重复加上所有的随机数KEY，然后这俩RDD关联，得到热点的结果RDD；对于A/B剩下的数据，按普通的进行JOIN，得到普通结果的RDD；然后将热点RDD和普通RDD进行UNION得到最终结果；
 
     7、完全空间浪费法，对A表所有数据的KEY加随机前缀，对B表所有KEY做重复加上所有的随机前缀，然后做关联得到结果；
+
+
+3. ERROR ApplicationMaster: SparkContext did not initialize after waiting for 100000 ms. Please check earlier log output for errors. Failing the application
+
+:: 
+
+    解决方案：
+        1.资源不能分配过大,或者没有把.setMaster(“local[*]”)去掉,
+        2. 检查是否运行了spark初始化的程序，如果不小心被注释掉，也会报错
+
+4. spark on hive 解决小文件过多的问题
+
+::
+    
+    设置参数： config("spark.sql.shuffle.partitions", "1")
+    或者
+    xx.toDF().repartition(1).createOrReplaceTempView("examined")
+
+    数量根据实际需要配置
+
+
+5. 如何通过sql插入map类型数据
+
+::
+    
+    可以使用str_to_map方法处理。例如：
+    str_to_map("k1:v1&k2:v2", '&', ':') == {"k1":"v1","k2","v2"}
+

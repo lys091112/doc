@@ -8,17 +8,8 @@
   :glob:
 
   tool/vim/*
-
-.. toctree::
-  :maxdepth: 1
-  :glob:
-
   tool/docker/*
-
-.. toctree::
-  :maxdepth: 1
-  :glob:
-
   tool/redis
 
 
+  rstGrammer

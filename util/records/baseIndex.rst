@@ -1,10 +1,10 @@
 .. highlight:: rst
 
-Algorithm
+基础知识
 ------------------
 
 .. toctree::
-  :maxdepth: 2
+  :maxdepth: 1
   :glob:
 
-  algorithm/**/*
+  base/webIndex

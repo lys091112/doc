@@ -13,4 +13,9 @@
 
 
 
+## database
+
+    neo4j: 图数据库
+    Elasticsearch: 字符搜索引擎
+
 TODO 持续更新中

@@ -15,6 +15,6 @@ rm -rf "_build/*"
 sphinx-autobuild . _build -B \
     -p 50005 \
     -i "*.md" \
-    -s 5
+    -s 300
 
 

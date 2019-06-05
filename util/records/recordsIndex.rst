@@ -9,6 +9,7 @@
   :name: mastertoc
   :numbered:
 
+  baseIndex
   languageIndex
   algorithmIndex
   toolIndex
