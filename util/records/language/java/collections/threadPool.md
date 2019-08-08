@@ -29,3 +29,9 @@
 - **常用的任务队列**
 
 
+ForkJoinPool:
+
+    默认的线程数为： Runtime.getRuntime().availableProcessors() - 1
+    在docker虚拟的环境下，会使用物理机的核数来建立线程数，所以这里需要手动调整数据
+    通过系统参数java.util.concurrent.ForkJoinPool.common.parallelism 来设置并发度
+

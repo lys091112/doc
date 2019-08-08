@@ -18,6 +18,11 @@ control + alt + o :删除无效的包引用
 
 
 
+command + shift + A action界面 输入 refactor this 可以只因到重构快捷键大全
+
+
+
+
 error
 ::::::::
 

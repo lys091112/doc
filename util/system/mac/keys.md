@@ -2,8 +2,14 @@
 # Mac 快捷键
 
 ```
-Cmd + Shift + 3   #屏幕截图
-Cmd + Space       #finder
+Cmd + Shift + 3   # 屏幕截图
+Cmd + Shift + 4   # 屏幕截图区间
+Cmd + Space       # finder
+Fn + 左方向       # Home键
+Fn + 右方向         # End键
+Fn + 上方向、      # PageUP
+Fn + 下方向、向前# PageDown
+Fn + delete键。    # Delete
 
 
 chorme:
