@@ -7,7 +7,7 @@
 </td></tr></table>
 
 
-## 1. checked 和 unchecked 异常
+1. checked 和 unchecked 异常
 
 在java中，将派生于Error或者RuntimeException（比如空指针，1/0）的异常称为unchecked异常，其他继承自java.lang.Exception得异常统称为Checked Exception，如IOException、TimeoutException等
 
@@ -20,3 +20,8 @@
  也称运行时异常（RuntimeException），表示错误，程序的逻辑错误。是RuntimeException,Error的子类，比如常见的NullPointerException、IndexOutOfBoundsException。对于运行时异常，java编译器不要求必须进行异常捕获处理或者抛出声明，由程序员自行决定。
 
 > 如果在使用spring 的 Transactional 进行事务处理时，默认情况下会对unchecked异常进行回滚，而对checked异常则不会进行回滚， 因此如果在事务中有外部依赖，要查看该外部依赖的异常调用栈，防止出现有异常但没回滚的情况。
+
+
+2. AbstractMethodError 原因分析
+
+如果在编译的时候使用的2.0版本中的这个ClassB，然而执行的时候使用的又是1.0版本的ClassB，那么就会抛出AbstractMethodError ,即编译和执行时使用的方法不同，一般时由于版本冲突引起的

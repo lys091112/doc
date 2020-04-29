@@ -8,3 +8,4 @@
   :glob:
 
   language/java/third_project/spring/spring-bean-lifecycle.rst
+  language/java/third_project/spring/spring-database.rst

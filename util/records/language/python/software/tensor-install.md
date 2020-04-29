@@ -53,14 +53,6 @@ j
 ```
 
 
-
-
-
-
-
-
-
-
 ### ERROR: 
 1. You are using pip version 9.0.1, however version 18.0 is available
 ```

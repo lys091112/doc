@@ -11,8 +11,27 @@ Idea with Mac
     3. control + enter 复写父类以及set get方法等
 
 
+参数配置
+:::::::::::::
+
+    1. 在Help-> Edit Custom Vm Properties 可以修改idea启动参数
 
 
+    2. 配置文件常用的几个位置
+        1 /Applications/IntelliJ IDEA.app/Contents/bin
+        2 ~/Library/Application Support/IntelliJIdea2018.3 
+
+激活
+----------
+
+1. 网盘下载agengjar
+2. help->Edit Custom VM Options 添加agent
+
+   -javaagent:/Applications/IntelliJ IDEA.app/Contents/bin/jetbrains-agent.jar
+
+3. help->register... 找到 License Activation 弹窗：
+   选择 License server 选项，License server address 中填入 ：``http://jetbrains-license-server``
+   or  ``http://fls.jetbrains-agent.com``
 
 遇到的问题
 ------------

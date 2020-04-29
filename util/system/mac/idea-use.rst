@@ -9,11 +9,13 @@ Mac下idea的快捷键记录
 command + o  :  文件搜索，包括非项目文件
 command + n  :  1. 在project目录窗口下为创建文件或目录 2.在文件中为创建文件的基本方法，包括getter／setter construct等
 conmand + alt + 方向键   ： 返回上一步或下一步
-command + alt + l : 格式化代码
+command + alt + l : 格式化代码 并删除无效的import
 
 command + alt + t : surround with(包括常用的条件语句和异常语句)
 
 control + alt + o :删除无效的包引用
+
+crotrol + shift + H 显示某个类的继承子类
 
 
 

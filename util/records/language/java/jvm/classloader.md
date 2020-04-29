@@ -1,50 +1,61 @@
 # 类加载器
 
+## 类加载器知识图片
 
-### 类加载器
-```
-Thread context class loader存在的目的主要是为了解决parent delegation机制下无法干净的解决的问题。假如有下述委派链： 
-ClassLoader A -> System class loader -> Extension class loader -> Bootstrap class loader 
+<img src="../pictures/classloader.png" alt="类加载器" width="800" height="500" align="center" />
 
-那么委派链左边的ClassLoader就可以很自然的使用右边的ClassLoader所加载的类。 
+### 上下文类加载器
 
-但如果情况要反过来，是右边的ClassLoader所加载的代码需要反过来去找委派链靠左边的ClassLoader去加载东西怎么办呢？没辙，parent delegation是单向的，没办法反过来从右边找左边。 
+Thread context class loader存在的目的主要是为了解决parent delegation机制下无法干净的解决的问题。假如有下述委派链：
+ClassLoader A -> System class loader -> Extension class loader -> Bootstrap class loader
+
+那么委派链左边的ClassLoader就可以很自然的使用右边的ClassLoader所加载的类。
+
+但如果情况要反过来，是右边的ClassLoader所加载的代码需要反过来去找委派链靠左边的ClassLoader去加载东西怎么办呢？没辙，parent delegation是单向的，没办法反过来从右边找左边。
 
 这种情况下就可以把某个位于委派链左边的ClassLoader设置为线程的context class loader，这样就给机会让代码不受parent delegation的委派方向的限制而加载到类了。
 
-```
-
-####  类命名空间
+### 类命名空间
 
 - 初始类加载器 定义类装载器
-
     如果要求某个类装载器A去装载一个类型,但是通过父亲代理，经过B C类装载器，最终却返回了D装载器装载的类型，这种装载器(ABC)被称为是那个类型的初始类装载器 ；而实际装载那个类型的D类装载器被称为该类型的定义类装载器
-
 
 - 命名空间共享
 
     每个类都有自己的命名空间，不同类加载器加载的类是相互不可见的，但是属于同一初始类装载器
     的类之间共享该初始类命名空间下的类
 
- ```
-                 --> O
- D -> C  -> B -> 
-                 --> A
- 左边的类加载器是右边的父类加载器， 那么在这种情况下A 可以共享B C D 下的命名空间
- 但是 A 和 O 之间的命名空间不能共享
+    ``` xml
+                     --> O
+    D -> C  -> B ->
+                     --> A
+    ```
 
- ```
+    左边的类加载器是右边的父类加载器， 那么在这种情况下A 可以共享B C D 下的命名空间
+    但是 A 和 O 之间的命名空间不能共享
+
+### 类加载时机
+
+-XX:+TraceClassLoading 监控类的加载
+
+1. 创建类实例，即new an object
+2. 访问类的静态变量
+3. 访问类的静态方法
+4. 反射 Class.forName(...)
+5. 初始化一个类的子类，会先初始化该类
+6. 虚拟机启动时，main方法所在的类
+
 #### 类卸载机制
 
-1. 类的生命周期
+1). 类的生命周期
 
 当类被加载，连接，初始化之后，类的生命周期就开始了，而当它的Class不再被引用，即不可被访问到，那么它的生命周期就结束了，其在方区的数据也会被卸载
 
 类何时结束，取决于类的Class对象生命周期何时结束
 
-2.  类的引用关系
+2). 类的引用关系
 
-- 类加载器和类对象 
+- 类加载器和类对象
 
     每个类加载器都用集合类保存着其加载的所有Class的对象引用
     而对于每个类，我们都可以通过.getClassLoader() 来获取类的加载器
@@ -55,7 +66,7 @@ ClassLoader A -> System class loader -> Extension class loader -> Bootstrap clas
     类的实例引用这个类的Class对象，我们可以通过实例的getClass()方法来获取类对象
     所有的类都有一个Class属性，代表这个类的类对象
 
-3. 类的卸载
+3). 类的卸载
 
 由Java JVM自带的类加载器加载的类永不会被卸载
 java JVM 自带的类加载器有 AppClassLoader ExtClassLoader BootStrapClassLoader
@@ -68,7 +79,7 @@ java JVM 自带的类加载器有 AppClassLoader ExtClassLoader BootStrapClassLo
 
 显然，如果一个单例模式下的类无法被卸载
 
-### 为什么会有上下文加载器，它的作用是什么？
+### 为什么会有上下文加载器，它的作用是什么
 
   Java 提供了很多服务提供者接口（Service Provider Interface，SPI），允许第三方为这些接口提供实现。常见的 SPI 有 JDBC、JCE、JNDI、JAXP 和 JBI 等。这些 SPI 的接口由 Java 核心库来提供，如 JAXP 的 SPI 接口定义包含在 javax.xml.parsers包中。
 
@@ -88,8 +99,11 @@ jdk中的DriverManager的加载Driver的步骤顺序依次是：
 通过System.getProperty(“jdbc.drivers”)获取设置，然后通过系统类加载器加载
 用户调用Class.forName()加载到系统类加载器，然后注册到DriverManager对象，在需要使用时直接取用，但需校验注册和调用的类加载是否一样，校验这步需要借助线程上下文类加载器（否则多模块应用同时都注册了mysql driver，从DriverManager取时将出现错乱
 
+``TIP``
 
-### TIP:
-通过DriverManager获取Driver类,一般情况下我们使用的方式为：DriverManager.class.getClassLoader(),该classloader是引导类loader，肯定无法加载Driver的实现类，因此需要上下文类加载器来打破这种双亲委派模型，
+``` txt
+    1. 通过DriverManager获取Driver类,一般情况下我们使用的方式为：DriverManager.class.getClassLoader(),该classloader是引导类loader，肯定无法加载Driver的实现类，因此需要上下文类加载器来打破这种双亲委派模型，
 
-此外还有其他多种用途，例如可以自定义上下文加载器，不继承双亲委派模型用来处理自定义加载类等等
+    2. 此外还有其他多种用途，例如可以自定义上下文加载器，不继承双亲委派模型用来处理自定义加载类等等
+
+```

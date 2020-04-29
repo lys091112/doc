@@ -20,6 +20,7 @@
 
     1. sudo du -h --max-depth=1 | grep 'G' | sort -n  #查询文件大小
     2. df -h 查看磁盘总量  
+    3. find ./ -name "*.vim" |xargs cat | grep -ri "go_bin_path" 查询固定内容
 
 
 文件压缩

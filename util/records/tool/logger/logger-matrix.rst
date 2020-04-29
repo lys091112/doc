@@ -1,11 +1,8 @@
-.. highlight:: rst
+.. highlight: rst
 .. _records_tool_logger_matrix:
 
 Logger 依赖的对应矩阵
 ----------------------
-.. toctree::
-  :maxdepth: 2
-  :glob:
 
 
 1. Commons-logging Vs slf4j
@@ -21,7 +18,7 @@ Logger 依赖的对应矩阵
 +----------------+---------------------------------------------------------+-------------------------------------------------+
 | Log4j2         | Commons-Logging,log4j-api,log4j-core,log4j-jcl          | slf4j-api,log4j-api,log4j-core,log4j-slf4j-impl |
 +----------------+---------------------------------------------------------+-------------------------------------------------+
-| Slf4j          | jcl-over-slf4j,slf4j-api                                | nil                                             |
+| Slf4j          | slf4j-jcl,slf4j-api                                     | nil                                             |
 +----------------+---------------------------------------------------------+-------------------------------------------------+
 | Common-logging | nil                                                     | slf4j-api,jcl-over-slf4j                        |
 +----------------+---------------------------------------------------------+-------------------------------------------------+
@@ -33,9 +30,10 @@ Logger 依赖的对应矩阵
 
     log4j-slf4j-impl-2.7.jar，这个包的作用就是使用slf4j的api，但是底层实现是基于log4j2
     slf4j-log4j12-1.6.1.jar，这个包的作用就是使用slf4j的api，但是底层实现是基于log4j
-    jcl-over-slf4j（实现commons-logging切换到slf4j）
+    jcl-over-slf4j（实现commons-logging切换到slf4j,由common-logging 输出的日志在底层转话为Slf4j）
     jul-to-slf4j （实现jdk-logging切换到slf4j）
-    log4j-over-slf4j og4j接口输出的日志就会通过log4j-over-slf4j路由到SLF4J
+    log4j-over-slf4j log4j接口输出的日志就会通过log4j-over-slf4j路由到SLF4J
+    slf4j-jcl：slf4j到commons-logging的桥梁
 
 
 描述
@@ -116,3 +114,13 @@ commons-logging切换到logback
     logback-core
     logback-classic
     第三步：在类路径下加入logback的配置文件
+
+
+Log4j2 配置文件加载
+'''''''''''''''''''''''
+选择configuration文件的优先级如下
+
+    1.classpath下名为log4j-test.json或者log4j-test.jsn文件
+    2.classpath下名为log4j2-test.xml
+    3.classpath下名为log4j.json或者log4j.jsn文件
+    4.classpath下名为log4j2.xml

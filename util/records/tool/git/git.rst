@@ -1,9 +1,10 @@
-.. highlight:: rst
+.. highlight: rst
 
 Git 基础命令
 ------------------
 
 .. toctree::
+
   :maxdepth: 1
   :glob:
   :name: mastertoc
@@ -16,6 +17,8 @@ git 初始化工作
     * git config --global user.email "lys091112@gmail.com"
     * git config --global core.editor vim  (指定git rebase默认使用的编辑器)
     * git config --global credential.helper store (会默认在下次执行时，记忆上次的提交密码)
+    * git config --list  # 查看现有的config配置
+    * git commit --amend --author="${author} <${email}>" -m "更新提交作者"
 
 基本命令
 ^^^^^^^^^^^^^
@@ -114,3 +117,19 @@ git submodule 使用
     2. 修改要修改的注释行，将其pick改为edit
     3. git commit --amend
     4. git rebase --continue #搞定
+
+撤销提交
+--------------
+
+::
+
+    命令如下： git reset --soft HEAD^
+    
+    --mixed
+        不删除工作空间提交的代码，撤销 commit，并且撤销 git add . 操作
+
+    --soft
+        不删除工作空间提交的代码，撤销 commit，但不撤销 git add . 操作
+
+    --hard
+        删除工作空间提交的代码，撤销 commit，并且撤销 git add . 操作 即提交的代码也删除

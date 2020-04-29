@@ -42,3 +42,18 @@
 
 .. image:: ../../pictures/math/ax导数.jpg
 
+
+
+泊松分布
+'''''''''
+
+
+概率密度pdf和累计分布cdf 核密度估计（kernel density estimation, KDE)
+'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+广义线性模型(generalized liner model GLM)
+''''''''''''''''''''''''''''''''''''''''''''''
+
+https://blog.csdn.net/weixin_37140379/article/details/82289704
+
+

@@ -30,5 +30,8 @@
     27  S 最大期望   (EM) 
     28  S 其他方法   (Other methods) 
     29  S Uplift modeling
-    
-    
+
+##   搜索
+
+    Lee 算法
+    hadLock 算法

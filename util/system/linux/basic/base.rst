@@ -28,6 +28,8 @@
         echo 'ownStr' | base64 -d # 将ownStr进行base64解码
     5. chown -R langle:langle {targetDir} 将某目标文件权限赋予langle
 
+    6. uname -a 查看系统环境参数
+
 
 杂项技巧
 ===============

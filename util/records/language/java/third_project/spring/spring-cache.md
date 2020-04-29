@@ -42,3 +42,64 @@
 | caches |	root对象|	当前方法调用使用的缓存列表（如@Cacheable(value={“cache1”, “cache2”})），则有两个cache	root.caches[0].name|
 | argument | name|	执行上下文	当前被调用的方法的参数，如findById(Long id)，我们可以通过#id拿到参数	user.id|
 | result |	执行上下文	|方法执行后的返回值（仅当方法执行之后的判断有效，如‘unless’，’cache evict’的beforeInvocation=false）	result|
+
+
+
+### spring cache 的redis的序列化方式
+
+1. JdkSerializationRedisSerializer redis 默认的序列化方式
+```
+    首先它要求存储的对象都必须实现java.io.Serializable接口，比较笨重
+
+    其次，他存储的为二进制数据，这对开发者是不友好的
+
+    优点是反序列化时不需要提供（传入）类型信息(class)
+
+```
+
+2. StringRedisSerializer
+```
+    StringRedisTemplate默认的序列化方式，key和value都会采用此方式进行序列化
+```
+
+3. Jackson2JsonRedisSerializer  GenericJackson2JsonRedisSerializer
+```
+Jackson2JsonRedisSerializer
+
+    把一个对象以Json的形式存储，效率高且对调用者友好
+
+    优点是速度快，序列化后的字符串短小精悍，不需要实现Serializable接口。
+
+    但缺点也非常致命：那就是此类的构造函数中有一个类型参数，必须提供要序列化对象的类型信息(.class对象)。 通过查看源代发现其在反序列化过程中用到了类型信息
+
+GenericJackson2JsonRedisSerializer
+
+   会自带@class类信息，进入序列化对象，用于反序列化时，无序指定对象
+
+```
+对比：
+
+    Jackson2JsonRedisSerializer: 他能实现 ``不同的Project`` 之间数据互通（因为没有@class信息，所以只要字段名相同即可），因为其实就是Json的返序列化，只要你指定了类型，就能反序列化成功
+    GenericJackson2JsonRedisSerializer: 不用自己手动指定对象的Class。我们可以使用一个全局通用的序列化方式
+
+```java 
+
+    public void test() {
+        // imap在序列化时，不会写入map的序列化对象，因此反序列化时会失败
+        Map<String,String> imap= Immutable.of("key", "value"),
+        jackson.wirteAsString(imap)
+
+
+        // 会带有java.util.hashmap的序列化信息用于反序列化
+        HashMap<String,String> map = new HashMap();
+        map.put"key","value");
+        jackson.wirteAsString(map)
+    }
+
+```
+
+4. FastJsonRedisSerializer和GenericFastJsonRedisSerializer 
+```
+    同上
+```
+
