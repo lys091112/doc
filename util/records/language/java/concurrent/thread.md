@@ -114,7 +114,10 @@
 
 ### java 中常用的阻塞
 
-    1. LockSupport.part(blocker, fasle) 用于阻塞当前线程，blocker是阻塞的对象，多用于排查问题
+    1. LockSupport.park(blocker, fasle) 用于阻塞当前线程，blocker是阻塞的对象，多用于排查问题
+    2. LockSupport.unpark(thread) 用于解除被park的线程. unpark 可以在park方法之前执行，当然前提是当前线程已启动后，才会生效。
+    方法的注释为:
+    Makes available the permit for the given thread, if it was not already available. If the thread was blocked on park then it will unblock. Otherwise, its next call to park is guaranteed not to block. ``This operation is not guaranteed to have any effect at all if the given thread has not been started.``
 
 ### 线程中断
 

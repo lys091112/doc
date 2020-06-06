@@ -1,7 +1,5 @@
 .. _records_language_java_concurrent_future_task:
 
-    
-
 
 
 .. code-block:: java

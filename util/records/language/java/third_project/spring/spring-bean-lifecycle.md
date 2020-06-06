@@ -1,14 +1,11 @@
-.. _records_language_java_spring_bean-life-cycle:
 
-spring 生命周期
-------------------
-
+## spring 生命周期
 
 Spring Bean的完整生命周期从创建Spring容器开始，直到最终Spring容器销毁Bean, 图示如下：
 
-.. image:: ../../pictures/spring-bean-life-cycle-01.png
+![image](../../pictures/spring-bean-life-cycle-01.png)
 
-.. image:: ../../pictures/spring-bean-life-cycle-02.png
+![image](../../pictures/spring-bean-life-cycle-02.png)
 
 
 Bean的完整生命周期经历了各种方法调用, 大致可以分为：

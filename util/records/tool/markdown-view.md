@@ -20,6 +20,7 @@ if ("条件1判断") then (true)
         endif
     endif
     :"顺序步骤3处理";
+else (false)
 endif
 
 if ("条件4判断") then (yes)
@@ -66,19 +67,19 @@ edge[fontname = "Microsoft YaHei", fontsize = 8, color="red" ]
     G -> M
     H -> M
 
-A[shape=box,label="ThomasContent",color="red",style=filled];
-B[shape=box,label="Filter"]
-C[shape=box,label="Filter"]
-D[shape=box,label="Rule01"]
-E[shape=box,label="Rule02"]
-F[shape=box,label="Rule03"]
-G[shape=box,label="Rule04"]
-H[shape=box,label="Rule05"]
-I[shape=box,label="Action01"]
-J[shape=box,label="Action02"]
-K[shape=box,label="Action03"]
-L[shape=box,label="Action04"]
-M[shape=box,label="Action05"]
+A[label="ThomwsContent",color="red",style=filled];
+B[label="Filter"]
+C[label="Filter"]
+D[label="Rule01"]
+E[label="Rule02"]
+F[label="Rule03"]
+G[label="Rule04"]
+H[label="Rule05"]
+I[label="Action01"]
+J[label="Action02"]
+K[label="Action03"]
+L[label="Action04"]
+M[label="Action05"]
 }
 
 ```
