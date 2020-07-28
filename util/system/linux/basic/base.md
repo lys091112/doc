@@ -1,20 +1,13 @@
 
-.. toctree::
-   :maxdepth: 2
-   :glob:
+## 系统特性基础
 
-系统特性基础
-^^^^^^^^^^^^^^^^^
-
-.. tip::
+``tip``
 
     buntu-16.10 开始不再使用initd管理系统，改用systemd,例如 systemctl restart networking.service
 
-系统常用命令
------------------
+### 1. 系统常用命令
 
-::
-
+``` 
     1. cat /proc/cpuinfo , lscpu  查看cpu信息 \
     2. sudo gedit /etc/apt/sources.list // 操作清理apt update 数据
     3. nslookup smtp.exmail.qq.com // 查看邮件的服务地址是否合法
@@ -30,6 +23,71 @@
 
     6. uname -a 查看系统环境参数
 
+```
+#### 1.1 查看物理CPU个数、CPU内核数、线程数
+
+physical id：每颗CPU的id，计算系统中有几个CPU。
+cpu cores：当前的CPU有几个核心。
+processor：每个CPU线程的id，计算系统中总计有几个CPU线程。
+
+``` sh
+# 总核心数 = 物理CPU个数  X  每颗物理CPU的核数
+# 总逻辑CPU数 = 物理CPU个数  X  每颗物理CPU的核数  X  超线程数
+
+# 查看CPU逻辑id
+grep 'physical id' /proc/cpuinfo | sort -u
+
+# 查询物理CPU个数
+cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
+
+# 查看每个物理CPU中core的核数(即个数)
+cat /proc/cpuinfo| grep "cpu cores"| uniq
+
+# 查看逻辑CPU的个数
+cat /proc/cpuinfo| grep "processor"| wc -l
+
+# 查看总线程数量
+grep 'processor' /proc/cpuinfo | sort -u | wc -l
+
+# 查看CPU信息（型号）
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
+
+# cpu详细信息
+cat /proc/cpuinfo
+
+# intel官方查看CPU列表信息 https://ark.intel.com/content/www/us/en/ark.html#@Processors
+
+# CPU占用最多的前10个进程
+ps auxw|head -1;ps auxw|sort -rn -k3|head -10 
+
+# 内存消耗最多的前10个进程 
+ps auxw|head -1;ps auxw|sort -rn -k4|head -10 
+
+# 虚拟内存使用最多的前10个进程 
+ps auxw|head -1;ps auxw|sort -rn -k5|head -10
+
+	USER      //用户名
+	%CPU      //进程占用的CPU百分比
+	%MEM      //占用内存的百分比
+	VSZ       //该进程使用的虚拟內存量（KB）
+	RSS       //该进程占用的固定內存量（KB）resident set size
+	STAT      //进程的状态
+	START     //该进程被触发启动时间
+	TIME      //该进程实际使用CPU运行的时间
+
+	ps auxw
+	u：以用户为主的格式来显示程序状况
+	x：显示所有程序，不以终端机来区分 
+	w：采用宽阔的格式来显示程序状况
+	ps auxw|head -1 输出表头
+	
+	sort -rn -k5 
+	-n是按照数字大小排序
+	-r是以相反顺序
+	-k是指定需要排序的栏位
+
+
+```
 
 杂项技巧
 ===============

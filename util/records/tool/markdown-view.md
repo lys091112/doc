@@ -3,6 +3,7 @@
 ## 流程图
 
 使用 plantUml + graphviz 
+
 ``` puml
 @startuml
 start
@@ -25,7 +26,7 @@ endif
 
 if ("条件4判断") then (yes)
 :"条件4成立的动作";
-else
+else (no)
     if ("条件5判断") then (yes)
         :"条件5成立时的动作";
     else (no)
@@ -37,37 +38,42 @@ stop
 ```
 
 ```dot
-
 digraph G{
 
 node[fontname = "Microsoft YaHei", fontsize = 12, shape = "Mrecord", color="skyblue", style="filled"]
 edge[fontname = "Microsoft YaHei", fontsize = 8, color="red" ]
 
     // 执行单元1
-    A -> B 
-    B -> D
-    B -> E
-    B -> F
-    D -> I
-    D -> J
-    D -> K
-    E -> I
-    E -> J
-    E -> K
-    F -> I
-    F -> J
-    F -> K
+    A -> B[label="检测条件是否满足"]
+    subgraph cluster0 {
+        B -> D
+        B -> E
+        B -> F
+        D -> I
+        D -> J
+        D -> K
+        E -> I
+        E -> J
+        E -> K
+        F -> I
+        F -> J
+        F -> K
+        label="策略1"
+    }
 
 // 执行单元 2
     A -> C[label="检测条件是否满足"]
-    C -> G
-    C -> H
-    G -> L
-    H -> L
-    G -> M
-    H -> M
+    subgraph cluster1 {
+        C -> G
+        C -> H
+        G -> L
+        H -> L
+        G -> M
+        H -> M
+        label="策略2"
+    }
 
-A[label="ThomwsContent",color="red",style=filled];
+A[label="ThomasContent"]
 B[label="Filter"]
 C[label="Filter"]
 D[label="Rule01"]
@@ -80,6 +86,32 @@ J[label="Action02"]
 K[label="Action03"]
 L[label="Action04"]
 M[label="Action05"]
+}
+
+```
+
+```dot
+digraph G{
+
+edge[color="red" ]
+node[color="skyblue", style="filled"]
+
+A[label="上下文"]
+
+P2F[label="Filter"]
+P2R1[label="R1"]
+P2R2[label="R2"];
+P2R3[label="R3"];
+P2AS[label="Ations"]
+// 执行单元 2
+    A->P2F[label="条件检测"]
+    P2F->P2R1
+    subgraph cluster0 {
+        label="串行规则"
+        P2R1->P2R2->P2R3
+    }
+        P2R3 -> P2AS
+        label="策略1"
 }
 
 ```
