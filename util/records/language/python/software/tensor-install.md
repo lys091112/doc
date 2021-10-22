@@ -52,6 +52,13 @@ j
  https://download.tensorflow.google.cn/linux/cpu/tensorflow-1.8.0-cp34-cp34m-linux_x86_64.whl
 ```
 
+### Pytorch 3.7 安装
+
+```
+pip3 install --upgrade torch==1.6.0 torchvision==0.7.0
+
+```
+
 
 ### ERROR: 
 1. You are using pip version 9.0.1, however version 18.0 is available

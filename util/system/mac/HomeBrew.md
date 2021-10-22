@@ -1,15 +1,13 @@
 # HomeBrew 使用 
 
 
-
-
 1. 软件下载失败问题解决 
 
 homebrew 在更新失败时会打印出失败的地址链接，通过其他方式下载
 
 方式一：
 
-执行 shi brew --cache `` 会打印出brew的cache目录
+执行 `` brew --cache `` 会打印出brew的cache目录
 
 如 ``/Users/<UserName>/Library/Caches/Homebrew``  将下载到的包拷贝到该目录下再次尝试
 
@@ -27,3 +25,10 @@ homebrew 在更新失败时会打印出失败的地址链接，通过其他方�
 如果方式二也不行，则可以通过 ``brew edit xxx`` 编辑文件，可以修改文件的下载地址，或者也可以修改文件的sha256 认证
 
 再次尝试 
+
+2. 更新后 brew 无法使用
+
+错误如下：
+`` Error: Cask 'deeper' definition is invalid: invalid 'depends_on macos' value: unknown or unsupported macOS version: :mavericks``
+
+可以使用命令： `` brew update-reset`` 对brew进行重置更新

@@ -32,6 +32,7 @@ python 安装过程中碰到的问题
     pip3 install sklearn
     pip3 install urllib
 
+
 * scrapy
 
 ::
@@ -61,6 +62,10 @@ mac下pip权限问题
 
     You are using pip version 9.0.1, however version 9.0.3 is available. You should consider upgrading
     python -m pip install --upgrade pip
+
+
+    2.  直接安装本地tar.gz 
+        pip install ~/xxx/pyspark.tar.gz
 
 执行时缺少包依赖问题
 ~~~~~~~~~~~~~~~~~~~~

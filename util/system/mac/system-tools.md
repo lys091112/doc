@@ -8,6 +8,14 @@ mac 系统的mdworker进程占用大量cpu, 原因是系统通过Spotlight建立
 
       sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
       sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+
+* 禁用MAC mds_stores
+    打开【系统偏好设置】，找到【Spotlight】把里面【搜索结果】的列表中的所有打勾的选项全部取消勾选（反正我是这样做的），在【隐私】里点击左下角【+】把你的文件夹或磁盘放在这里，Bingo，一切就正常了。内存又回来了。硬盘空间也回来了。还有一个东东要讲，
+
+这【mds_stores】和【mds】进程都是为了Spotlight索引而疯狂的，
+
+解决方案就是在【终端】里输入：sudo mdutil -a -i off  【关闭】想打开的话就把off改成on。
+
 * mac终端下打开图片或文件（夹）
   打开图片 ： open 图片名
   打开finder： open 文件夹名
@@ -32,6 +40,10 @@ mac 系统的mdworker进程占用大量cpu, 原因是系统通过Spotlight建立
     brew install xx
     brew upgrade xx
     export HOMEBREW_NO_AUTO_UPDATE=true // 每次使用时关掉brew的自动更新
+
+* chrome 
+
+    启动硬件加速，会经常造成网络链接被重置，应该关闭使用
 
 ## 系统命令
 

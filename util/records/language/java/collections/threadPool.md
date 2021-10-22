@@ -35,3 +35,10 @@ ForkJoinPool:
     在docker虚拟的环境下，会使用物理机的核数来建立线程数，所以这里需要手动调整数据
     通过系统参数java.util.concurrent.ForkJoinPool.common.parallelism 来设置并发度
 
+
+## 5. Question
+
+### 1. Junit 会自动中断为执行完的用户线程
+
+    我们在使用JUnit测试功能时，如果涉及到多线程，会发现用户线程即便没有执行完，也会被强制中断， 这是因为在``JunitCore`` 中，会执行``System.exit(0 or 1)`` 来中断jvm的执行
+    因此 Junit并不适合用来测试多线程，如果要测试，可以在Test方法中通过类似``CountDownLatch.await()``的方式来进行等待,延迟方法执行完成时间

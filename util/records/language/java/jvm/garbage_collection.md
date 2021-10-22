@@ -253,7 +253,7 @@ full gc 是针对的 old young perm 全部的回收
 
     ParNew在单CPU环境下并不会比Serial更好，甚至由于存在线程交互的开销，在通过超线程技术实现的两个CPU的环境中都不能百分百保证超过Serial收集器。但当CPU多到一定数量时，对于GC时的系统资源利用还是很好的。 默认开启的线程数是和CPU数量相同， 可以通过-XX:ParallelGCThreads来限制垃圾回收的线程数量
 
-    使用参数： -UseParNewGC 使用ParNew  + Serial Old
+    使用参数： -UseParNewGC 使用ParNew  + Serial Old  可以配合CMS一起使用
 
 - Parallel Scanvenge 收集器
 
@@ -276,7 +276,17 @@ full gc 是针对的 old young perm 全部的回收
 
 由于CMS是基于标记清除算法实现， 因此会导致有大量的空间碎片产生， 在为大对象分配内存时，往往会出现老年代还有大量剩余空间，但却无法找到连续空间来分配，因此不得不开启一次Full GC。为解决这个问题，CMS提供参数：-XX:UseCMSCompactAtFullCollection(默认开启)，用于在CMS收集器进行FUllGC后开启碎片的合并整理过程，内存整理过程无法进行并发，因此会导致停顿时间变长。 另一个参数：-XX:CMSFullGCsBeforCompaction参数用于设置执行多少次不压缩后的Full GC，然后进行一次带压缩的Full GC（默认为0， 表示每次FULL GC都进行碎片整理）。
 
-做为老年代收集器，却无法和jdk1.4种的Parallel Scanvenge收集器配合工作， u 因此使用CMS时，只能选择ParNew和Serial收集器中的一个。 使用-XX:UseConcMarkSweepGC来默认使用ParNew收集器。 也可以通过-XX:UseParNewGCl来强制使用
+做为老年代收集器，却无法和jdk1.4种的Parallel Scanvenge收集器配合工作， 因此使用CMS时，只能选择ParNew和Serial收集器中的一个。 使用 ``-XX:UseConcMarkSweepGC`` 来默认使用ParNew收集器。 也可以通过 ``-XX:UseParNewGC`` 来强制使用
+
+#### 常见问题：
+
+concurrent mode failure可以通过增大老生代的空间或者通过设置CMSInitiatingOccupancyFraction一个小的值使得CMS Collection发生的更频繁（CMSInitiatingOccupancyFraction可以控制CMS执行的时间，假设设置为70，说明老生代在利用率为70%时发生CMS），但是把这个值设置小也会导致CMS发生更加频繁。
+
+某些情况下，promotion failures也会发生，即使是老生代有足够的空间。这个原因是"fragmentation"-老生代的可用空间不是连续的，而将新生代的对象移动到老生代需要连续的可用空间。而CMS是不会对内存进行压缩的算法，因此造成了这种问题
+
+``concurrent mode failure`` 产生的原理：CMS并发处理阶段用户线程还在运行中，伴随着程序运行会有新的垃圾产生，CMS无法处理掉它们（没有标记），只能在下一次GC的时候处理。同样的，用户线程运行就需要分配新的内存空间，为此，CMS收集器并不会在老年代全部被填满以后在进行收集，会预留一部分空间提供并发收集时的程序运行使用。即使是这样，还是会存在CMS运行期间预留的内存无法满足程序需求，就会出现"Concurrent Mode Failure"失败，这是，虚拟机将会启动备案操作：临时启动Serial Old 收集器来重新进行老年代的垃圾收集，Serial Old收集器会Stop the world，这样会导致停顿时间过长
+
+同样的，CMS收集结束后会有大量的碎片空间差生，也会给大对象分配带来麻烦，往往会出现老年代还有很大空间剩余，但是无法找到足够多的连续空间来分配当前对象，不得不提前触发一次Full GC
 
 ``` txt
 

@@ -1,9 +1,10 @@
-# Thread 之间的状态转化
+# Java 线程相关知识
+
+## 1. Thread 之间的状态转化
 
 转化图示：
 
 ![线程转化状态](../pictures/thread-status.jpg)
-
 
 状态说明：
 
@@ -24,7 +25,7 @@
 5. 死亡(dead)：线程run()、main() 方法执行结束，或者因异常退出了run()方法，则该线程结束生命周期。死亡的线程不可再次复生。
 
 
-### java线程的7中状态
+## 2. java线程的7中状态
 
 1. 新建状态(New
 2. 就绪状态(Runnable)
@@ -56,6 +57,31 @@
 ```
 
 7. 死亡状态(TERMINATED)
+
+
+## 3. interrupt(), isInterrupted(), interrupted() 三者的区别
+
+### 3.1 interrupt()
+
+interrupt()函数所做的是形式上中断一个线程。
+
+为什么说是形式上的中断，因为这个函数不会去真正意义上的打断一个正在运行的线程，而是修改这个线程的中断状态码（interrupt status）。同时，对于处在sleep()、wait()和join()方法阻塞下的线程，该方法会使线程抛出一个异常。对于可中断通道（NIO中的Channel）的阻塞状态，该方法会关闭通道，抛出异常。对于NIO中选择器的阻塞（Selector.selector），该方法等同于调用选择器的wakeup()方法。
+
+调用 ``interrupt()`` 方法,本质上知识修改了线程的中断状态为true，如果没有其他的方式来回复线程状态，那么他会一直保留这个状态。 碰到 sleep()、wait()和join() 这是三个方法后会抛出Intterrupt异常，并将线程的中断状态恢复为 ``false``.  
+
+对于LockSupport.park方法，是不会清除中断标志位的，不清除中断标志位意味着调用Thread.interrupt方法之后，碰到多个LockSupport.park方法线程不会进行等待状态了
+
+### 3.1 isInterrupted
+
+用来判断当前线程是否是中断状态
+
+### 3.3 interrupted() 
+
+方法会返回当前线程的中断标志位，同时会重置中断标志位
+
+参考链接：
+1.  [Java多线程--正确理解interrupt()、interrupted()和isInterrupted()](https://blog.csdn.net/CringKong/article/details/80526996)
+2. [哪种情况下会响应中断？哪种情况下不响应中断](https://blog.csdn.net/qq_35634181/article/details/106769113)
 
 ### 后台线程(deamon)
 

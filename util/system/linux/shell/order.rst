@@ -42,3 +42,26 @@ linux 基础命令
 ::
 
     sed -n '1000,3000p' filename 显示1000到300行的数据
+
+6. wget 
+
+::
+
+    wget -c --limit-rate=300k -t 0 -O new_name.tar.gz xxxx
+
+    -c :   断点续传
+
+    -t 0 :  反复尝试的次数，0为不限次数
+
+    -O name_name.tar.gz :  把下载的文件命名为new_name.tar.gz
+
+    xxx :  要下载的文件的网址
+
+    --passive-ftp :  使用pasv即被动模式下载，只有在搭配保全系统而遇到问题时，才要加此参数
+
+    --proxy-user=username :   设置登陆代理服务器的用户名
+
+    --proxy-passwd=123456 :  设置登陆代理服务器的密码
+
+    --retr-symlinks :  下载FTP的符号链接
+    --limit-rate=300k 限速
