@@ -24,11 +24,20 @@
 1、 Markdown Preview Enhancer   [使用文档](https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/diagrams)
 
   * 修改配色 通过命令：Markdown Preview Enhanced: Open Mermaid Config ，然后修改配置文件如下：
-
+ 
+     //设置mermaid绘图的风格 共有三个主题：
+    // mermaid.css mermaid.dark.css  mermaid.forest.css
     MERMAID_CONFIG = {
         startOnLoad: true,
         theme: mermaid.forest.css
     }
+
+  * 修改markdown 预览背景颜色： Markdown Preview Enhanced: Customize Css
+      .markdown-preview.markdown-preview {
+      // background-color: white;
+      background-color: rgb(29, 39, 39);
+      }
+      参考链接：https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css
 
   * brew install graphviz   // 用来支持platuml图形库 以及dot语法的图形库
 

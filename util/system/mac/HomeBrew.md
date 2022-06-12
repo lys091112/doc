@@ -32,3 +32,16 @@ homebrew 在更新失败时会打印出失败的地址链接，通过其他方�
 `` Error: Cask 'deeper' definition is invalid: invalid 'depends_on macos' value: unknown or unsupported macOS version: :mavericks``
 
 可以使用命令： `` brew update-reset`` 对brew进行重置更新
+
+3. 执行node 失败
+
+错误如下:
+ node
+dyld: Library not loaded: /usr/local/opt/c-ares/lib/libcares.2.dylib
+  Referenced from: /usr/local/bin/node
+  Reason: image not found
+
+解决方式：
+ln -sf /usr/local/Cellar/c-ares/1.18.1_1 /usr/local/opt/c-ares
+
+即将虚拟文件链接到真实文件下

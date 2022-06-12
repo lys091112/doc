@@ -1,0 +1,51 @@
+@startuml
+
+
+interface javaFuture #DAE8FC  {
+
+    # boolean cancel(boolean mayInterruptIfRunning);
+    # boolean isCancelled();
+    # boolean isDone();
+    # V get();
+    # V get(long timeout, TimeUnit unit);
+}
+
+interface nettyFuture<T>  #F8CECC{
+
+    # Future<V> addListener(...);
+    # Future<V> removeListener(...);
+    # sync(); await();
+    # ...()
+}
+
+interface Promise<T> #F8CECC {
+
+    # Promise<V> setSuccess(V result);
+    # boolean trySuccess(V result);
+    # Promise<V> setFailure(Throwable cause);
+    # ...()
+
+}
+interface ChannelFuture<T> #F8CECC {
+    # Channel channel();
+}
+
+interface ChannelPromise<T> #F8CECC {
+}
+
+class DefaultPromise<T> #F8CECC {
+}
+
+class DefaultChannelPromise #F8CECC {
+}
+
+javaFuture <|-- nettyFuture 
+nettyFuture <|-- ChannelFuture 
+nettyFuture <|-- Promise
+ChannelFuture <|-- ChannelPromise
+Promise <|-- ChannelPromise
+Promise <|.. DefaultPromise
+ChannelPromise <|.. DefaultChannelPromise
+DefaultPromise <|-- DefaultChannelPromise
+
+@enduml

@@ -1,8 +1,6 @@
 # Install
 
-
-
-### 安装流程如下：　
+## 1. 安装流程如下：　
 
 ```sh
 curl -O https://storage.googleapis.com/golang/go1.9.linux-amd64.tar.gz  # 可以从pan.baidu.com下载
@@ -16,12 +14,21 @@ go version
 
 ```
 
-### tools
+## 2. tools
 
 1. https://github.com/alecthomas/gometalinter 静态编译分析工具,
 
+## 3. 安装第三方包
 
-# 使用过程中碰到的问题
+go get 则被设计为 “用于编辑 go.mod 变更依赖
+go install 被设计为“用于构建和安装二进制文件
+
+我们安装第三方包时，通过 ``go install`` 将二进制包 安装到 $GOPATH/bin 目录下，而我们会把$GOPATH 配置到 `` $PATH `` 环境变量下，因此可以通过在终端直接执行命令（通过PATH找寻）
+
+例如： ``go install github.com/spf13/cobra-cli@latest ``
+
+
+## 4. 安装过程中碰到的问题
 
 ### In Gogland I get 'flag provided but not defined: -goversion' using go run
 
