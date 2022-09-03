@@ -39,13 +39,15 @@
       }
       参考链接：https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css
 
-  * brew install graphviz   // 用来支持platuml图形库 以及dot语法的图形库
+  * brew install graphviz   // mac 用来支持platuml图形库 以及dot语法的图形库
+  * yay -S graphviz // manjaro
 
 2. golang 
 
 ```
     1. 搜索 setting.json 在其中添加 "go.testFlags": ["-v"] 可以打印golang test日志
     2. setting.json  中添加 "editor.defaultFormatter": "ms-vscode.Go"
+    3. 'Ctrl+Shift+O' 可以显示出当前文件声明的方法，类似于tags
 
 ```
     3.1) vscode golang 自动提示失效，可以更新gocode
@@ -60,3 +62,5 @@
 9. Bracket Pair Colorizer v2 括号的高亮和划分
 10. Better Align  自动对其工具
 11. Markdown All in One  markdown的集成
+12. VScode 目录文件夹图片主题
+    file -》 首选项 -》 文件夹主题 -》 安装 Material Icon Theme
