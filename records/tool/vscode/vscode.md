@@ -1,19 +1,44 @@
 # Vscode 使用记录
 
-## 1. 快捷使用
 
-    "⇧⌘X" ==> 打开插件扩展窗口，用于安装插件
-    "⌘ +K  v" ==> 打开markdown预览
-    command + shift + p 万能健
+<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+- [Vscode 使用记录](#vscode-使用记录)
+  - [1. 常规使用](#1-常规使用)
+    - [1.1 快捷使用](#11-快捷使用)
+    - [1.2 使用code命令打开VSCode](#12-使用code命令打开vscode)
+    - [1.3 使用``C++``记录](#13-使用c记录)
+  - [2. 插件](#2-插件)
+
+<!-- /code_chunk_output -->
+
+
+## 1. 常规使用
+
+### 1.1 快捷使用
+
+-  "⇧⌘X" ==> 打开插件扩展窗口，用于安装插件
+-  "⌘ +K  V" ==> 打开markdown预览
+-  command + shift + p 万能健
         1. 搜索generate  用于显示一些生成代码类的快捷命令
+-  通过快捷键打开左侧文件目录树，结合vim插件的“O” 快捷键，快速打开文件,命令设置如下
+    ```json
+    {
+    "key": "shift+cmd+e",
+    "command": "workbench.view.explorer",
+    "when": "viewContainer.workbench.view.explorer.enabled"
+    } 
+    ```
 
 
-### 使用code命令打开VSCode
+### 1.2 使用code命令打开VSCode
 
-安装：打开VSCode –> command+shift+p –> 输入shell command –> 点击提示Shell Command: Install ‘code’ command in PATH运行
-使用：打开终端，cd到要用VSCode打开的文件夹，然后输入命令code .即可打开
+安装：打开``VSCode –> command+shift+p`` –> 输入shell command –> 点击提示Shell Command: Install ‘code’ command in PATH运行
+使用：打开终端，cd到要用VSCode打开的文件夹，然后输入命令 ``code .`` 即可打开
 
-### 使用C++ 记录
+### 1.3 使用``C++``记录
 
 1. 首先需要通过 brew install gcc@8 安装gcc
 2. 安装vcpkg,然后可以通过vcpkg安装需要的依赖包
@@ -59,8 +84,13 @@
 6. TODO tree  待做列表
 7. vscode-icons  图标
 8. Better Comments 注释的高亮定制
-9. Bracket Pair Colorizer v2 括号的高亮和划分
+9. Bracket Pair Colorizer v2 括号的高亮和划分 （已被vscode内置)
 10. Better Align  自动对其工具
 11. Markdown All in One  markdown的集成
-12. VScode 目录文件夹图片主题
+12. draw.io integration
+13. graphviz(dot) language support 、 plantUML 、 plantUML Previewer
+14. jupyter
+15. makefile tools
+16. VIM 
+17. VScode 目录文件夹图片主题
     file -》 首选项 -》 文件夹主题 -》 安装 Material Icon Theme
