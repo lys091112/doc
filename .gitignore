@@ -1,6 +1,8 @@
 .DS_Store
 _build/
-*/.vscode
+*/.vscode/*
 **/.ipynb_checkpoints/*
 
-**/util/records/tool/c4model/**
+*vscode/*
+
+**/records/tool/c4model/**
