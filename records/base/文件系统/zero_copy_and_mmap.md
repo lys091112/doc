@@ -36,38 +36,37 @@ mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个�
 
 ### 2.1 常规传输
 
-经历的过程为： 磁盘 -》(DMA Copy) 页缓存 -》（CPU Copy） 内存 （CPU Copy）-》 SockerBuffer -》(DMA Copy) 网卡
-
-需要经历四次上下文切换 (从用户态到内核态，读取完在切回来-》两次  写入到SocketBuffer， 从用户态到内核态，写完在切回来-》两次)
-保存3份数据（不算磁盘和网卡, 页缓存一份，内存一份，socketBuffer一份）
+- 经历的过程为： 磁盘 -》(DMA Copy) 页缓存 -》（CPU Copy） 内存 （CPU Copy）-》 SockerBuffer -》(DMA Copy) 网卡
+- 需要经历四次上下文切换 (从用户态到内核态，读取完在切回来-》两次  写入到SocketBuffer， 从用户态到内核态，写完在切回来-》两次)
+- 4次拷贝(磁盘文件 DMA 拷贝到内核缓冲区，内核缓冲区 CPU 拷贝到用户缓冲区，用户缓冲区 CPU 拷贝到 Socket 缓冲区，Socket 缓冲区 DMA 拷贝到协议引擎)
+- 保存3份数据（不算磁盘和网卡, 页缓存一份，内存一份，socketBuffer一份）
 
 
 ### 2.2 使用mmap进行传输
 
-经历的过程为： 磁盘 -》(DMA Copy) 页缓存 -》（CPU Copy） SockerBuffer -》(DMA Copy) 网卡
-
-建立内存在页缓存的映射，直接操纵页缓存到SockerBuffer
-
-需要经历四次上下文切换 (从用户态到内核态，读取完在切回来-》两次  写入到SocketBuffer， 从用户态到内核态，写完在切回来-》两次)
-保存3份数据（页缓存一份，socketBuffer一份）
+- 经历的过程为： 磁盘 -》(DMA Copy) 页缓存 -》（CPU Copy） SockerBuffer -》(DMA Copy) 网卡,建立内存在页缓存的映射，直接操纵页缓存到SockerBuffer
+- 需要经历四次上下文切换 (从用户态到内核态，读取完在切回来-》两次  写入到SocketBuffer， 从用户态到内核态，写完在切回来-》两次)
+- 3 次拷贝（磁盘文件DMA拷贝到内核缓冲区，内核缓冲区 CPU 拷贝到 Socket 缓冲区，Socket 缓冲区 DMA 拷贝到协议引擎）
+- 保存2份数据（页缓存一份，socketBuffer一份）
 
 ### 2.3 linux 2.1版本的零拷贝 sendfile
 
 经历的过程为： 磁盘 -》(DMA Copy) 页缓存 -》（CPU Copy） SockerBuffer -》(DMA Copy) 网卡
 
-建立内存在页缓存的映射，直接操纵页缓存到SockerBuffer
-
-需要经历两次上下文切换 (从用户态到内核态，读取完在切回来-》两次 )
-保存3份数据（页缓存一份，socketBuffer一份）
+- 建立内存在页缓存的映射，直接操纵页缓存到SockerBuffer
+- 需要经历两次上下文切换 (从用户态到内核态，读取完在切回来-》两次 )
+- 3 次拷贝
+- 保存2份数据（页缓存一份，socketBuffer一份）
 
 ### 2.4 linux 2.4之后的零拷贝 sendfile
 
 经历的过程为： 磁盘 -》(DMA Copy) 页缓存 -》（CPU Copy 只拷贝文件描述符） SockerBuffer -》(DMA Copy) 网卡
 
-建立内存在页缓存的映射，通过带收集功能的DMA，直接操纵页缓存到网卡
+- 建立内存在页缓存的映射，通过带收集功能的DMA，直接操纵页缓存到网卡
 
-需要经历两次上下文切换 (从用户态到内核态，读取完在切回来-》两次 )
-保存3份数据（页缓存一份）
+- 需要经历两次上下文切换 (从用户态到内核态，读取完在切回来-》两次 )
+- 2 次拷贝（磁盘文件 DMA 拷贝到内核缓冲区，内核缓冲区 DMA 拷贝到协议引擎）
+- 保存1份数据（页缓存一份）
 
 ## 3. 语言实现
 
@@ -79,7 +78,7 @@ mmap()会返回一个指针ptr，它指向进程逻辑地址空间中的一个�
 
 ### 3.2 go
 
-``io.Copy`` 底层封装了对 ```sendfile` 的使用
+``io.Copy`` 底层封装了对 ``sendfile`` 的使用
 
 
 

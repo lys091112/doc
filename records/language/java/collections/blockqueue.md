@@ -1,6 +1,39 @@
 # java BlockQueue
 
+## 1. 队列简述
 
+### 1.1 非阻塞队列：
+1、ConcurrentLinkedQueue
+  单向链表结构的无界并发队列, 非阻塞队列，由CAS实现线程安全，内部基于节点实现
+
+2、ConcurrentLinkedDeque  
+双向链表结构的无界并发队列, 非阻塞队列，由CAS实现线程安全    
+
+3、PriorityQueue
+内部基于数组实现，线程不安全的队列
+
+### 1.2 阻塞队列：
+
+1、DelayQueue
+一个支持延时获取元素的无界阻塞队列
+
+2、LinkedTransferQueue
+一个由链表结构组成的无界阻塞队列。
+
+3、ArrayBlockingQueue
+有界队列，阻塞式,初始化时必须指定队列大小，且不可改变；，底层由数组实现；
+
+4、SynchronousQueue
+最多只能存储一个元素，每一个put操作必须等待一个take操作，否则不能继续添加元素
+
+5、PriorityBlockingQueue
+一个带优先级的队列，而不是先进先出队列。元素按优先级顺序被移除，而且它也是无界的，也就是没有容量上限，虽然此队列逻辑上是无界的，但是由于资源被耗尽，所以试图执行添加操作可能会导致 OutOfMemoryError 错误；
+
+6.  LinkedBlockingQueue
+
+一个由链表结构组成的有界阻塞队列
+
+  LinkedBlockingDeque：一个由链表结构组成的双向阻塞队列。（LinkedBlockingDeque还是可选容量的(防止过度膨胀)，即可以指定队列的容量。如果不指定，默认容量大小等于Integer.MAX_VALUE（@Native public static final int MAX_VALUE = 0x7fffffff））
 
 ## 2. 常见的集中BlockQueue
 

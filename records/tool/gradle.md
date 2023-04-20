@@ -1,8 +1,12 @@
 # gradle 使用记录
 
-1). 显示项目的jar依赖
+- 显示项目的jar依赖
 
-    cd ${项目目录}; gradle dependencies ,会在命令台下生成第三方依赖的jar包graph
+    cd \${项目目录}; gradle dependencies ,会在命令台下生成第三方依赖的jar包graph
+
+- 编译指定java版本,示例：
+
+    ./gradlew build -Dorg.gradle.java.home=/Library/Java/JavaVirtualMachines/jdk-13.0.2.jdk/Contents/Home
 
 
 2). 打包可执行jar

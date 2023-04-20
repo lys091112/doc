@@ -10,7 +10,87 @@
 |show full processlist;  | 查询数据库的连接状态|                  
 |show status like '%{param}%'| 根据变量名查询具体含义|
 
-- **查询mysql锁等待情况**
+### 1.2. 数据库表字段修改
+```
+ALTER TABLE `alert_action` add COLUMN `tenant` varchar(4) NOT NULL DEFAULT "ai";
+
+
+索引修改
+ALTER TABLE `alert_policy` DROP INDEX i_application_name;
+CREATE INDEX i_app_tenant_name ON `alert_policy` (`application_id`, `tenant`, `name`); 
+
+## 修改并添加自增主键
+ALTER TABLE `alert_application_switch` DROP PRIMARY KEY;
+ALTER TABLE `alert_application_switch` ADD `id` BIGINT(32) NOT NULL first;
+ALTER TABLE `alert_application_switch` CHANGE COLUMN `id` `id` BIGINT(32) NOT NULL AUTO_INCREMENT PRIMARY KEY;
+```
+
+### 1.3 字符集相关基础命令
+
+```sql
+
+# 获取当前mysql的字符集
+show variables like '%character%';
+# 获取库下某表的字符集
+show table status from db58_xfzx_rdktsandbox like '%agent%';
+# 获取表列的字符集
+show full columns from rdkt_customer;
+# 获取当前mysql支持的所有字符集
+show character set ;
+# 修改数据库字符集
+ alter database name character set utf8;
+# 修改表字符集
+alter table 表名 convert to character set gbk;
+# 修改字段字符集
+alter table 表名 modify column '字段名' varchar(30) character set gbk not null;
+# 添加表字段字符集
+alter table 表名 add column '字段名' varchar (20) character set gbk;
+
+```
+
+### 1.4. 查询修改mysql事务隔离级别
+
+```sql
+select @@tx_isolation
+set global tx_isolation='REPEATABLE-READ';
+set tx_isolation='READ-COMMITTED';
+```
+
+### 1.5. 锁相关
+
+- 基础参数
+
+``` sql
+-- Table_locks_immediate：产生表级锁定的次数；
+-- Table_locks_waited：出现表级锁定争用而发生等待的次数；
+show status like 'table%'
+
+
+-- InnoDB_row_lock_current_waits：当前正在等待锁定的数量；
+-- InnoDB_row_lock_time：从系统启动到现在锁定总时间长度；
+-- InnoDB_row_lock_time_avg：每次等待所花平均时间；
+-- InnoDB_row_lock_time_max：从系统启动到现在等待最常的一次所花的时间；
+-- InnoDB_row_lock_waits：系统启动后到现在总共等待的次数；
+show status like 'InnoDB_row_lock%';
+
+
+-- 正在执行的事务
+SELECT * from information_schema.INNODB_TRX;
+-- 当前出现的锁等待
+SELECT * from information_schema.INNODB_LOCK_WAITS;
+-- 出现锁等待的锁的详细信息
+SELECT * from information_schema.INNODB_LOCKS;
+-- 查看全部线程，辅助定位客户端的主机ip，连接用户名等
+show full processlist;
+-- 如果活跃事务少，会显示当前活跃的事务详细信息，多的话只显示概要；最近一次死锁的信息
+show engine innodb status;
+```
+
+- 查询死锁信息
+``` sql
+show engine innodb status \G;
+```
+-  查询mysql锁等待情况
 ```
  select * from information_schema.innodb_trx where trx_state="lock wait";
  或
@@ -53,56 +133,6 @@
 |Threads_running| 不在睡眠的线程数量。 |
 |Uptime| 服务器工作了多少秒。|
 
-### 1.2.  lock 相关参数 
-
-``` sql
--- Table_locks_immediate：产生表级锁定的次数；
--- Table_locks_waited：出现表级锁定争用而发生等待的次数；
-show status like 'table%'
-
-
--- InnoDB_row_lock_current_waits：当前正在等待锁定的数量；
--- InnoDB_row_lock_time：从系统启动到现在锁定总时间长度；
--- InnoDB_row_lock_time_avg：每次等待所花平均时间；
--- InnoDB_row_lock_time_max：从系统启动到现在等待最常的一次所花的时间；
--- InnoDB_row_lock_waits：系统启动后到现在总共等待的次数；
-show status like 'InnoDB_row_lock%';
-
-
--- 正在执行的事务
-SELECT * from information_schema.INNODB_TRX;
--- 当前出现的锁等待
-SELECT * from information_schema.INNODB_LOCK_WAITS;
--- 出现锁等待的锁的详细信息
-SELECT * from information_schema.INNODB_LOCKS;
--- 查看全部线程，辅助定位客户端的主机ip，连接用户名等
-show full processlist;
--- 如果活跃事务少，会显示当前活跃的事务详细信息，多的话只显示概要；最近一次死锁的信息
-show engine innodb status;
-```
-
-### 1.3. 查询修改mysql事务隔离级别
-
-```sql
-select @@tx_isolation
-set global tx_isolation='REPEATABLE-READ';
-set tx_isolation='READ-COMMITTED';
-```
-
-### 1.4. 查询数据库的死锁信息
-
-``` sql
-show engine innodb status \G;
-```
-
-### 1.5. 锁冲突的表、数据行等，并分析锁争用的原因
-
-```sql
-create table InnoDB_monitor(a INT) engine=InnoDB;
-show engine InnoDB status;
-drop table InnoDB_monitor;
-```
-
 ## 2. 常用功能
 
 1. 日期处理
@@ -130,7 +160,7 @@ drop table InnoDB_monitor;
 ```
 3. limit 性能限制
 
-imit10000,20的意思扫描满足条件的10020行，扔掉前面的10000行，返回最后的20行,所以当limit要跳过的数字很大时，这是一个很耗时的操作
+limit10000,20的意思扫描满足条件的10020行，扔掉前面的10000行，返回最后的20行,所以当limit要跳过的数字很大时，这是一个很耗时的操作
 
 优化方式：(基本是从查表到查索引)
 
@@ -206,3 +236,16 @@ show full processlist;
 
 但是这种方法无法避免重启的情况，不过一般数据库不会频繁重启，影响不大，如果非得频繁重启，可以通过设置testOnBorrow，即申请连接的时候先试一试连接是否可用，不过带来的影响就是性能降低，需要根据实际需求合理取舍。
 
+
+## 4. mysql 特性记录
+
+mysql表里单行中的所有列加起来（不考虑其他隐藏列和记录头信息） ，占用的最大长度是65535(64K)个字节
+
+- 现在的mysql数据表一般采用Dynamic行记录格式。它由行记录的额外信息和行记录的真实数据组成。
+- mysql表里单行中的所有列加起来（不考虑其他隐藏列和记录头信息） ，占用的最大长度是65535个字节。
+- 如果数据表里只有一列 not null 的varchar字段，它的最大长度，接近于 65535 除以 字符集的maxlen。
+- 如果要存放大于64k的字段数据，可以考虑使用longtext和longblob等类型,查询的时候如果不用查询大文件字段，就不要写在sql里。
+- mysql的数据页大小是16k，为了保存varchar或者text，blob这种长度可能大于16k的字段，在Dynamic行格式中，会只保留20个字节的指针，实际数据则放在其他溢出页中。为了将它们读取出来，会需要更多的磁盘IO。
+- blob和text很像，但blob没有字符集的概念，并且还能存放二进制的数据，比如图片或视频，但实际上图片和视频更推荐放在对象存储（Object Storage Service，简称oss）中
+
+参考：[mysql的varchar字段最大长度真的是65535吗](https://mp.weixin.qq.com/s/TC-c-d4DO8YnXNLeJjE58Q)

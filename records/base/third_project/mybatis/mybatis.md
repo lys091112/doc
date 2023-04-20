@@ -1,5 +1,6 @@
 # Mybatis 
 
+## 1. 基础功能点
 1. #{}和\${}的区别是什么
     - #{}是预编译处理，\${}是字符串替换。
     - Mybatis在处理#{}时，会将sql中的#{}替换为?号，调用PreparedStatement的set方法来赋值；
@@ -67,3 +68,57 @@
 
     mybatis3.4.0开始加入了@Mapper注解，目的就是为了不再写mapper映射文件， 对于一些简单的sql语句，可以配合@Select @Insert等注解使用9. 注解Mapper的作用
 
+
+## 2. 功能讲解
+
+### 2.1 mybatis batch insert
+
+常用的批量插入是通过foreach标签来执行批量操作，但是当数据量大约100条是，对于占位符和参数的映射尤其耗时，values的增长与所需的解析时间，是呈指数型增长的
+
+原因：
+mybatis 默认执行器类型为Simple，会为每个语句创建一个新的预处理语句，也就是创建一个PreparedStatement对象。
+对于含有<foreach>的语句，无法采用缓存，那么在每次调用方法时，都会重新解析sql语句,所以会加大sql的执行时间
+
+因此建议使用<foreach>标签的批量插入条数控制在20～50条
+
+方式二：使用batch执行器进行批量插入，
+```java
+SqlSession session = sqlSessionFactory.openSession(ExecutorType.BATCH,false);
+try {
+    SimpleTableMapper mapper = session.getMapper(SimpleTableMapper.class);
+    List<SimpleTableRecord> records = getRecordsToInsert(); 
+   
+   int batch = 1000;
+   for(SimpleTableRecord t: records) {
+    for(int i = 0; i < records.size(); i++)
+    BatchInsert<SimpleTableRecord> batchInsert = insert(records.get(i));
+    if (i != 0 && i % batch == 0) {
+        session.commit();
+    }
+   }
+   session.commit();
+} finally {
+    session.close();
+}
+
+```
+
+类似于如下：
+
+```java
+Connection connection = DriverManager.getConnection("jdbc:mysql://xxxxx/mydb?useUnicode=true&characterEncoding=UTF-8&useServerPrepStmts=false&rewriteBatchedStatements=true","root","root");
+connection.setAutoCommit(false);
+PreparedStatement ps = connection.prepareStatement(
+        "insert into tb_user (name) values(?)");
+for (int i = 0; i < stuNum; i++) {
+    ps.setString(1,name);
+    ps.addBatch();
+}
+ps.executeBatch();
+connection.commit();
+connection.close();
+```
+
+参考链接：
+1. [被 foreach 坑惨了，再也不敢乱用了](https://mp.weixin.qq.com/s/-hY7tu5HGkpeOcW0SnYCPg)
+2. [官方文档](https://mybatis.org/mybatis-dynamic-sql/docs/insert.html)

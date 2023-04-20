@@ -1,5 +1,6 @@
 # Maven 学习记录
 
+## 1. 工具记录
 1). Maven Release Plugin
 
     - As mention at POM Reference: SCM The connection requires read access for Maven to be able to find the source code (for example, an update), developerConnection requires a connection that will give write access. It is an information for our project where the other, including with another maven plugin to re-use this information further. In this case the Maven Release Plugin.
@@ -18,22 +19,46 @@
         反布失败后的回滚:
             mvn clean release:rollback -Pproduct
 
-2). Maven FindBugs Plugin
+2). 插件使用
+
+```xml
+<build>
+  <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>findbugs-maven-plugin</artifactId>
+    <version>3.0.4</version>
+    <configuration>
+    !-- <configLocation>${basedir}/springside-findbugs.xml</configLocation> -->
+    <threshold>High</threshold>
+    <effort>Default</effort>
+    <findbugsXmlOutput>true</findbugsXmlOutput>
+    <!-- findbugs xml输出路径-->
+    <findbugsXmlOutputDirectory>target/site</findbugsXmlOutputDirectory>
+    </configuration>
+  </plugin>
+  
+  <!-- maven过滤必需配置文件 -->
+  <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <!-- 是否开启文件过滤，默认为false不开启 -->
+        <filtering>false</filtering>
+        <excludes>
+          <!-- 打包中不包含config/** 资源-->
+          <exclude>config/**</exclude> 
+        </excludes>
+        <includes>
+                <include>**/*.properties</include>
+                <include>**/*.xml</include>
+        </includes>
+      </resource>
+  </resources>
+
+</build>
+
+```
 
     <!-- findbugs 插件，检查代码 -->
-        <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>findbugs-maven-plugin</artifactId>
-        <version>3.0.4</version>
-        <configuration>
-        !-- <configLocation>${basedir}/springside-findbugs.xml</configLocation> -->
-        <threshold>High</threshold>
-        <effort>Default</effort>
-        <findbugsXmlOutput>true</findbugsXmlOutput>
-        <!-- findbugs xml输出路径-->
-        <findbugsXmlOutputDirectory>target/site</findbugsXmlOutputDirectory>
-        </configuration>
-        </plugin>
         命令：
          mvn findbugs:help       查看findbugs插件的帮助  
          mvn findbugs:check      检查代码是否通过findbugs检查，如果没有通过检查，检查会失败，但检查不会生成结果报表  

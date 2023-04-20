@@ -25,3 +25,14 @@
    3. 再次执行git命令时，无需输入密码
 
 ```
+
+4. 提示无权限
+
+openSSH 8.8 以上版本弃用 rsa 算法,解决方法：
+- 继续使用rsa，在.ssh下添加文件 config，输入
+```
+PubkeyAcceptedKeyTypes +ssh-rsa
+```
+
+- 使用新的签名算法
+ssh-keygen -t ed25519 -C “xxx@email.com”
