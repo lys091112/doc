@@ -4,7 +4,7 @@
 1. 用牛顿迭代法求平方根
 <div align="center">
 
-![newtow](../pictures/design/newton_iterator.png)
+![newtow](../../pictures/math/newton_iterator.png)
 </div>
 
 我们一般初次猜测X=1,然后不断的通过迭代堆数据进行推进,逐步告警精确值,
