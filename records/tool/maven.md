@@ -1,6 +1,10 @@
 # Maven 学习记录
 
-## 1. 工具记录
+## 1. 常用命令
+
+- ``mvn -s ~/.m2/setting-xx.xml dependency:resolve`` 通过setting-xx.xml文件中的配置来将依赖包下载到本地
+
+## 2. 工具记录
 1). Maven Release Plugin
 
     - As mention at POM Reference: SCM The connection requires read access for Maven to be able to find the source code (for example, an update), developerConnection requires a connection that will give write access. It is an information for our project where the other, including with another maven plugin to re-use this information further. In this case the Maven Release Plugin.

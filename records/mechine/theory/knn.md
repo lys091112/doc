@@ -19,7 +19,7 @@ pseudo code:
 
 .. code-block:: python
 
-    def main():
+def main():
     trainingSet = []
     testSet = []
     #三分之二为训练集，三分之一为测试集

@@ -8,3 +8,11 @@
 * 行为型模式
 
 [6个原则](https://github.com/lys091112/doc/blob/master/skill/design_pattern/six_principle.md)
+
+## 1. 创建型
+
+## 2. 结构型
+
+## 3. 行为型
+
+

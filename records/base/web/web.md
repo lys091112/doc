@@ -21,7 +21,11 @@
 1. 在通过网络请求获取response之后， 需调用close方法关闭事件流。 
    调用close方法后，客户端和服务器之间发生了哪些操作？？
 
+## 跨域请求
 
+跨域请求一般需要代理和web服务进行配置支持跨域。但是一般也不会支持跨域携带cookied，如果需要在跨域请求时，携带自己的cookied，需要进行以下处理：
+- 在客户端中设置 {credentials: 'include'}
+- 服务端处理 CORS（跨域资源共享），springboot中 可以 设置corsFilter
 
 
 

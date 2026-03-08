@@ -18,6 +18,13 @@ go version
 
 1. https://github.com/alecthomas/gometalinter 静态编译分析工具,
 
+
+### 2.1 tool install
+```
+1. go install github.com/go-bindata/go-bindata/v3/go-bindata@latest
+
+```
+
 ## 3. 安装第三方包
 
 go get 则被设计为 “用于编辑 go.mod 变更依赖

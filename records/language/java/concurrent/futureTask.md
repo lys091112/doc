@@ -1,8 +1,8 @@
-.. _records_language_java_concurrent_future_task:
+# FutureTask
 
 
-
-.. code-block:: java
+## 1.  JDK1.8中重新FutureTask的意图:( handlePossibleCancellationInterrupt方法)
+``` java
 
     /** 
      * 保证了中断方法的执行只会发生在当前线程中。 
@@ -29,19 +29,13 @@
         // 这里不能清除中断标记，因为没办法区分来自cancel(true)的中断。(即中断可能会传递到线程的下一个task)
         // Thread.interrupted();
     }
+```
 
+- 1. 该方法的作用
+  - 确保在run执行完之前，当前线程一定执行了interrupt()操作，具体可以参见cancelcel方法的实现。
+  - 该方法的实现是通过while循环来实现的，如果任务状态是中断中，则一直等待，直到任务状态变为中断完成。
+  - 防止资源泄漏，如果没有等待中断完成，可能会在清理过程中丢失中断信号
 
+- 2. 为何要把Thread.interrupted() 注释掉？
+  想避免在执行取消的循环中runner还一直保持中断状态，所以想在取消的循环中重置runner的中断状态，但是又考虑到如下事实：程序员设计程序时可能使用中断作为task和caller之间的通信。所以贸然的清除中断标志，可能会给程序设计者带来不便，所以既然不能保证一定是cancel(true)导致的中断，那么就不清除了，最终将最后一行注释了。所以最终的结果还是让runner保持中断状态。（基于jdk1.8.0_65版本
 
-总结
-'''''
-
-JDK1.8中重新FutureTask的意图:( handlePossibleCancellationInterrupt方法)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-    是想避免在执行取消的循环中runner还一直保持中断状态，所以想在取消的循环中重置runner的中断状态，但是又考虑到如下事实：程序员设计程序时可能使用中断作为task和caller之间的通信。所以贸然的清除中断标志，可能会给程序设计者带来不便，所以既然不能保证一定是cancel(true)导致的中断，那么就不清除了，最终将最后一行注释了。所以最终的结果还是让runner保持中断状态。（基于jdk1.8.0_65版本
-
-
-cancle(true)
-""""""""""""""""""""""
-
-    当cancel(true)去以中断的方式中断任务的执行时，除非在Callable的call()方法实现上设计成响应线程中断，否则是不会中断callable.call()方法的执行的，虽然不会中断任务的执行，但是不会设置callable的运行结果，在get()方法返回时抛出CancellationException异常

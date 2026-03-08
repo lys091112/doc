@@ -32,6 +32,15 @@
     } 
     ```
 
+-  ctrl + 0 将鼠标焦点移动到左侧文件目录树
+-  ctrl + 1 将鼠标焦点移动到右侧编辑框内
+-  ctrl + b 打开侧边栏
+-  ctrl + shift + p  可以打开命令面板，输入命令，然后回车
+-  ctrl + shift + f 可以全局搜索
+-  ctrl + shift + p  输入 "open recent" 可以打开最近打开的文件
+-  ctrl + shift + p  输入 "open file" 可以打开文件
+-  ctrl + shift + p  输入 "open folder" 可以打开文件夹
+
 
 ### 1.2 使用code命令打开VSCode
 
@@ -67,6 +76,8 @@
   * brew install graphviz   // mac 用来支持platuml图形库 以及dot语法的图形库
   * yay -S graphviz // manjaro
 
+    c4module: C4-module: https://www.infoq.cn/article/C4-architecture-model
+
 2. golang 
 
 ```
@@ -87,10 +98,26 @@
 9. Bracket Pair Colorizer v2 括号的高亮和划分 （已被vscode内置)
 10. Better Align  自动对其工具
 11. Markdown All in One  markdown的集成
-12. draw.io integration
+12. draw.io integration  用于在vscode中直接编辑draw.io文件
 13. graphviz(dot) language support 、 plantUML 、 plantUML Previewer
 14. jupyter
 15. makefile tools
 16. VIM 
 17. VScode 目录文件夹图片主题
     file -》 首选项 -》 文件夹主题 -》 安装 Material Icon Theme
+
+18. prettier 代码格式化 (也可用于将压缩后的js文件进行还原，便于调试)
+19. Minify 代码压缩，将js/css/html文件压缩后生成新文件，便于传输
+
+--- 画图相关插件---
+12. draw.io integration  用于在vscode中直接编辑draw.io文件
+13. graphviz(dot) language support 、 plantUML 、 plantUML Previewer
+20. excalidraw  用于在vscode中直接编辑excalidraw文件
+  ```
+    1. 在vscode中，搜索excalidraw  安装插件
+    2. Ctrl+Shift+P，输入 “Excalidraw: New” 并回车，即可快速创建一个新的绘图文件。
+    3. 打开``https://libraries.excalidraw.com/`` 在其中寻找需要的库，下载到本地的固定目录下，例如：``~/.vscode/extensions/excalidraw.excalidraw-0.1.0/libraries/``  也可以直接clone https://github.com/excalidraw/excalidraw-libraries.git ， 然后将其放到固定目录下
+
+    4. 打开库面板：在 Excalidraw 绘图界面，点击左侧工具栏的 “库”图标（看起来像一本书）。 浏览并加载库： 在弹出的库面板中，点击右下角的 “...” 菜单。 选择 “加载”。
+   ```
+21. mermaid  用于在vscode中直接编辑mermaid文件
